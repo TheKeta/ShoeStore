@@ -2,6 +2,7 @@
 using ShoeStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +11,55 @@ namespace ShoeStore.DataAccess
 {
     public class ItemRepository : IItemRepository
     {
-        public Item add(Item item)
+        private SqlConnection _connection;
+        private SqlCommand _command;
+        private string _connectionString;
+        private string _insertCommand = "INSERT INTO Items(Id, Brand, Model, Description, Sex) VALUES(@Id, @Brand, @Model, @Description, @Sex)";
+        public ItemRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+        public Item Add(Item item)
+        {
+            using(_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_insertCommand, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", item.Id);
+                    _command.Parameters.AddWithValue("@Brand", item.Brand);
+                    _command.Parameters.AddWithValue("@Model", item.Model);
+                    _command.Parameters.AddWithValue("@Description", item.Description);
+                    _command.Parameters.AddWithValue("@Sex", item.Sex);
+
+                    _command.ExecuteNonQuery();
+                    return item;
+                }
+            }
+        }
+
+        public bool Remove(Guid itemID)
         {
             throw new NotImplementedException();
         }
 
-        public bool remove(Guid itemID)
+        public void Update(Item item)
         {
             throw new NotImplementedException();
         }
 
-        public void update(Item item)
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_connection != null) _connection.Dispose();
+            }
         }
     }
 }

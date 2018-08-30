@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ShoeShop.Business.Interfaces
 {
-    public interface IItemRepository
+    public interface IItemRepository : IDisposable
     {
-        Item add(Item item);
-        bool remove(Guid itemID);
-        void update(Item item);
+        Item Add(Item item);
+        bool Remove(Guid itemID);
+        void Update(Item item);
     }
 }
