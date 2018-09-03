@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAveableSizeRepository.cs" />
     <Compile Include="IItemRepository.cs" />
+    <Compile Include="IPictureRepository.cs" />
+    <Compile Include="IStoreItemRepository.cs" />
+    <Compile Include="IStoreRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
