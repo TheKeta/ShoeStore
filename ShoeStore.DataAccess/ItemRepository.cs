@@ -1,11 +1,7 @@
 ﻿using ShoeShop.Business.Interfaces;
 using ShoeStore.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShoeStore.DataAccess
 {

@@ -1,4 +1,5 @@
 ﻿using ShoeShop.Presentation.Interfaces;
+using ShoeStore.Configuration;
 using ShoeStore.Models;
 using System.Web.Mvc;
 
@@ -7,21 +8,23 @@ namespace ShoeStore.Presentation.Controllers
     public class HomeController : Controller
     {
         private IItemService _itemService;
-        public HomeController(IItemService itemService)
+        private ItemConfiguration _itemConfig;
+        public HomeController()
         {
-            _itemService = itemService;
+            _itemConfig = new ItemConfiguration();
+            _itemService = _itemConfig.GetItemService();
         }
 
         public ActionResult Index()
         {
-            Item item = new Item()
-            {
-                Brand = "Nike",
-                Description = "Letnje patike",
-                Model = "R90",
-                Sex = "Muske"
-            };
-            _itemService.Add(item);
+            //Item item = new Item()
+            //{
+            //    Brand = "Nike",
+            //    Description = "Letnje patike",
+            //    Model = "R90",
+            //    Sex = "Muske"
+            //};
+            //_itemService.Add(item);
             return View();
         }
 

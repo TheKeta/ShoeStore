@@ -48,10 +48,6 @@
       <Project>{d0cf88a8-baea-4d4e-a03a-fb83eaf387de}</Project>
       <Name>ShoeShop.Business.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShoeStore.Configuration\ShoeStore.Configuration.csproj">
-      <Project>{7c30f9d8-bbe6-4e27-88f0-00752d629eb0}</Project>
-      <Name>ShoeStore.Configuration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShoeStore.Models\ShoeStore.Models.csproj">
       <Project>{046769a6-095e-4994-afd8-e4aa9695ef18}</Project>
       <Name>ShoeStore.Models</Name>

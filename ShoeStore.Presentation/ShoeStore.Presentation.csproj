@@ -203,6 +203,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeShop.Presentation.Interfaces\ShoeShop.Presentation.Interfaces.csproj">
+      <Project>{D8E81621-57F0-4ACD-A9F9-A3763E76F0A9}</Project>
+      <Name>ShoeShop.Presentation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoeStore.Configuration\ShoeStore.Configuration.csproj">
+      <Project>{7C30F9D8-BBE6-4E27-88F0-00752D629EB0}</Project>
+      <Name>ShoeStore.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoeStore.Models\ShoeStore.Models.csproj">
+      <Project>{046769A6-095E-4994-AFD8-E4AA9695EF18}</Project>
+      <Name>ShoeStore.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

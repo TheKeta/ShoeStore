@@ -41,7 +41,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations.cs" />
+    <Compile Include="ItemConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShoeShop.Business.Interfaces\ShoeShop.Business.Interfaces.csproj">
+      <Project>{D0CF88A8-BAEA-4D4E-A03A-FB83EAF387DE}</Project>
+      <Name>ShoeShop.Business.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoeShop.Business.Services\ShoeShop.Business.Services.csproj">
+      <Project>{49F47FE4-8913-45A7-BB22-9584EE1E8AC2}</Project>
+      <Name>ShoeShop.Business.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoeShop.Presentation.Interfaces\ShoeShop.Presentation.Interfaces.csproj">
+      <Project>{D8E81621-57F0-4ACD-A9F9-A3763E76F0A9}</Project>
+      <Name>ShoeShop.Presentation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoeStore.DataAccess\ShoeStore.DataAccess.csproj">
+      <Project>{000AD12F-A892-43BD-950F-9B9FDEE58D8F}</Project>
+      <Name>ShoeStore.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
