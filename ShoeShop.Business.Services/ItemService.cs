@@ -55,5 +55,15 @@ namespace ShoeShop.Business.Services
                 if (_itemRepository != null) _itemRepository.Dispose();
             }
         }
+
+        public ICollection<Item> GetAll()
+        {
+            return _itemRepository.GetAll();
+        }
+
+        public Item FindById(Guid id)
+        {
+            return _itemRepository.FindById(id);
+        }
     }
 }

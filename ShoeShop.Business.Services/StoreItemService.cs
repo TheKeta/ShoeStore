@@ -23,9 +23,14 @@ namespace ShoeShop.Business.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Store> GetAll()
+        public ICollection<StoreItem> FindByStoreId(Guid storeId)
         {
-            return _storeRepository.GetAll();
+            return _storeItemRepository.FindByStoreId(storeId);
+        }
+
+        public ICollection<StoreItem> GetAll()
+        {
+            return _storeItemRepository.GetAll();
         }
 
         public bool Remove(StoreItem itemID)

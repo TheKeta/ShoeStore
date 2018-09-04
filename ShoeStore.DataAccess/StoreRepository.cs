@@ -24,7 +24,7 @@ namespace ShoeStore.DataAccess
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Store> GetAll()
+        public ICollection<Store> GetAll()
         {
             using (_connection = new SqlConnection(_connectionString))
             {
@@ -39,9 +39,9 @@ namespace ShoeStore.DataAccess
             }
         }
 
-        private IEnumerable<Store> CreateStoreList(SqlDataReader reader)
+        private ICollection<Store> CreateStoreList(SqlDataReader reader)
         {
-            List<Store> list = new List<Store>();
+            ICollection<Store> list = new List<Store>();
             while (reader.Read())
             {
                 list.Add(CreateStore(reader));

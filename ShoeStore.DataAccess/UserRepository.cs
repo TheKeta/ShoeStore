@@ -10,7 +10,7 @@ namespace ShoeStore.DataAccess
         private SqlConnection _connection;
         private SqlCommand _command;
         private string _connectionString;
-        private string _insertCommand = "INSERT INTO AveableSize(Id, FirstName, LastName, Address, Email, Password) VALUES(@Id, @SIId, @Size)";
+        private string _insertCommand = "INSERT INTO Users(Id, FirstName, LastName, Address, Email, Password) VALUES(@Id, @SIId, @Size)";
 
         public UserRepository(string connectionString)
         {

@@ -13,6 +13,6 @@ namespace ShoeStore.Models
         public string Model { get; set; }
         public string Description { get; set; }
         public string Sex { get; set; }
-        public List<Picture> Images { get; set; }
+        public ICollection<Picture> Images { get; set; }
     }
 }

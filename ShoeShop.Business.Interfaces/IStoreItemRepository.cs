@@ -1,4 +1,5 @@
 ﻿using ShoeStore.Models;
+using System;
 using System.Collections.Generic;
 
 namespace ShoeShop.Business.Interfaces
@@ -8,6 +9,7 @@ namespace ShoeShop.Business.Interfaces
         StoreItem Add(StoreItem item);
         bool Remove(StoreItem itemID);
         void Update(StoreItem item);
-        IEnumerable<StoreItem> GetAll();
+        ICollection<StoreItem> GetAll();
+        ICollection<StoreItem> FindByStoreId(Guid storeId);
     }
 }

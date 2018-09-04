@@ -12,5 +12,7 @@ namespace ShoeShop.Business.Interfaces
         Item Add(Item item);
         bool Remove(Guid itemID);
         void Update(Item item);
+        ICollection<Item> GetAll();
+        Item FindById(Guid id);
     }
 }

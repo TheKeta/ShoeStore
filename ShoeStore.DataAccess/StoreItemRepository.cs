@@ -13,7 +13,8 @@ namespace ShoeStore.DataAccess
         private SqlDataReader _reader;
         private string _connectionString;
         private string _insertCommand = "INSERT INTO StoreItems(Id, StoreId, ItemId, Price) VALUES(@Id, @StoreId, @ItemId, @Price)";
-        private string _getAll = "SELECT (Id, StoreId, ItemId, Price) FROM StoreItems";
+        private string _getAll = "SELECT * FROM StoreItems";
+        private string _findByStoreId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId";
         public StoreItemRepository(string connectionString)
         {
             _connectionString = connectionString;
@@ -23,7 +24,7 @@ namespace ShoeStore.DataAccess
             throw new NotImplementedException();
         }
 
-        public IEnumerable<StoreItem> GetAll()
+        public ICollection<StoreItem> GetAll()
         {
             using (_connection = new SqlConnection(_connectionString))
             {
@@ -38,7 +39,7 @@ namespace ShoeStore.DataAccess
             }
         }
 
-        private IEnumerable<StoreItem> CreateStoreItemList(SqlDataReader reader)
+        private ICollection<StoreItem> CreateStoreItemList(SqlDataReader reader)
         {
             List<StoreItem> list = new List<StoreItem>();
             while (reader.Read())
@@ -67,6 +68,23 @@ namespace ShoeStore.DataAccess
         public void Update(StoreItem item)
         {
             throw new NotImplementedException();
+        }
+
+        public ICollection<StoreItem> FindByStoreId(Guid storeId)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_findByStoreId, _connection))
+                {
+                    _command.Parameters.AddWithValue("@StoreId", storeId);
+
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return CreateStoreItemList(_reader);
+                    }
+                }
+            }
         }
     }
 }

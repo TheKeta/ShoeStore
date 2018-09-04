@@ -12,6 +12,7 @@ namespace ShoeShop.Presentation.Interfaces
         Store Add(Store item);
         bool Remove(Store itemID);
         void Update(Store item);
-        IEnumerable<Store> GetAll();
+        ICollection<Store> GetAll();
+        Store FindById(Guid id);
     }
 }

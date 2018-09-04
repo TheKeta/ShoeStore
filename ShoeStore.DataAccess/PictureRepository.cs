@@ -10,7 +10,7 @@ namespace ShoeStore.DataAccess
         private SqlConnection _connection;
         private SqlCommand _command;
         private string _connectionString;
-        private string _insertCommand = "INSERT INTO AveableSize(Id, ItemId, Image) VALUES(@Id, @ItemId, @Image)";
+        private string _insertCommand = "INSERT INTO Pictures(Id, ItemId, Image) VALUES(@Id, @ItemId, @Image)";
 
         public PictureRepository(string connectionString)
         {
