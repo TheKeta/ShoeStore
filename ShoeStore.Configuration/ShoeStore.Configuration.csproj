@@ -45,17 +45,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoeShop.Business.Interfaces\ShoeShop.Business.Interfaces.csproj">
+    <ProjectReference Include="..\ShoeShop.Business.Interfaces\ShoeStore.Business.Interfaces.csproj">
       <Project>{D0CF88A8-BAEA-4D4E-A03A-FB83EAF387DE}</Project>
-      <Name>ShoeShop.Business.Interfaces</Name>
+      <Name>ShoeStore.Business.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShoeShop.Business.Services\ShoeShop.Business.Services.csproj">
+    <ProjectReference Include="..\ShoeShop.Business.Services\ShoeStore.Business.Services.csproj">
       <Project>{49F47FE4-8913-45A7-BB22-9584EE1E8AC2}</Project>
-      <Name>ShoeShop.Business.Services</Name>
+      <Name>ShoeStore.Business.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShoeShop.Presentation.Interfaces\ShoeShop.Presentation.Interfaces.csproj">
+    <ProjectReference Include="..\ShoeShop.Presentation.Interfaces\ShoeStore.Presentation.Interfaces.csproj">
       <Project>{D8E81621-57F0-4ACD-A9F9-A3763E76F0A9}</Project>
-      <Name>ShoeShop.Presentation.Interfaces</Name>
+      <Name>ShoeStore.Presentation.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoeStore.DataAccess\ShoeStore.DataAccess.csproj">
       <Project>{000AD12F-A892-43BD-950F-9B9FDEE58D8F}</Project>

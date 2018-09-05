@@ -24,7 +24,7 @@ namespace ShoeStore.Configuration
 
         public IStoreService GetStoreService()
         {
-            return new StoreService(GetStoreRepository());
+            return new StoreService(GetStoreRepository(), GetItemService(), GetStoreItemService());
         }
 
         public IStoreRepository GetStoreRepository()
@@ -32,6 +32,14 @@ namespace ShoeStore.Configuration
             return new StoreRepository(Configuration.Configurations.ConnectionString);
         }
 
+        public IStoreItemService GetStoreItemService()
+        {
+            return new StoreItemService(GetStoreItemRepository());
+        }
 
+        public IStoreItemRepository GetStoreItemRepository()
+        {
+            return new StoreItemRepository(Configuration.Configurations.ConnectionString);
+        }
     }
 }

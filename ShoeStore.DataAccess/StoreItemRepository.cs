@@ -56,7 +56,8 @@ namespace ShoeStore.DataAccess
                 Id = (Guid)reader[0],
                 StoreId = (Guid)reader[1],
                 ItemId = (Guid)reader[2],
-                Price = (double)reader[3]
+                Price = (double)reader[3],
+                AveableSizes = new List<AveableSize>()
             };
         }
 

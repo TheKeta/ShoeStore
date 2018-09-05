@@ -21,7 +21,7 @@ namespace ShoeStore.Presentation.Controllers
         public ActionResult Index()
         {
             IEnumerable<Store> stores =  _storeService.GetAll();
-            return View();
+            return View(stores);
         }
 
         public ActionResult About()

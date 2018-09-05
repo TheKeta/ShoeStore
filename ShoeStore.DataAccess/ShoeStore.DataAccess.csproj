@@ -49,9 +49,9 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShoeShop.Business.Interfaces\ShoeShop.Business.Interfaces.csproj">
+    <ProjectReference Include="..\ShoeShop.Business.Interfaces\ShoeStore.Business.Interfaces.csproj">
       <Project>{d0cf88a8-baea-4d4e-a03a-fb83eaf387de}</Project>
-      <Name>ShoeShop.Business.Interfaces</Name>
+      <Name>ShoeStore.Business.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoeStore.Models\ShoeStore.Models.csproj">
       <Project>{046769a6-095e-4994-afd8-e4aa9695ef18}</Project>

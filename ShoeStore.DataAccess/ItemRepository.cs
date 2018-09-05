@@ -82,7 +82,8 @@ namespace ShoeStore.DataAccess
                 Brand = (string)reader[1],
                 Model = (string)reader[2],
                 Description = (string)reader[3],
-                Sex = (string)reader[4]
+                Sex = (string)reader[4],
+                Images = new List<Picture>()
             };
         }
 
@@ -111,7 +112,7 @@ namespace ShoeStore.DataAccess
                     _command.Parameters.AddWithValue("@Id", id);
                     using (_reader = _command.ExecuteReader())
                     {
-                        return CreateItem(_reader);
+                        return _reader.Read() ? CreateItem(_reader) : null;
                     }
                 }
             }

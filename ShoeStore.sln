@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{B2F720
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Models", "ShoeStore.Models\ShoeStore.Models.csproj", "{046769A6-095E-4994-AFD8-E4AA9695EF18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeShop.Business.Interfaces", "ShoeShop.Business.Interfaces\ShoeShop.Business.Interfaces.csproj", "{D0CF88A8-BAEA-4D4E-A03A-FB83EAF387DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Business.Interfaces", "ShoeShop.Business.Interfaces\ShoeStore.Business.Interfaces.csproj", "{D0CF88A8-BAEA-4D4E-A03A-FB83EAF387DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Configuration", "ShoeStore.Configuration\ShoeStore.Configuration.csproj", "{7C30F9D8-BBE6-4E27-88F0-00752D629EB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.DataAccess", "ShoeStore.DataAccess\ShoeStore.DataAccess.csproj", "{000AD12F-A892-43BD-950F-9B9FDEE58D8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeShop.Business.Services", "ShoeShop.Business.Services\ShoeShop.Business.Services.csproj", "{49F47FE4-8913-45A7-BB22-9584EE1E8AC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Business.Services", "ShoeShop.Business.Services\ShoeStore.Business.Services.csproj", "{49F47FE4-8913-45A7-BB22-9584EE1E8AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeShop.Presentation.Interfaces", "ShoeShop.Presentation.Interfaces\ShoeShop.Presentation.Interfaces.csproj", "{D8E81621-57F0-4ACD-A9F9-A3763E76F0A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Presentation.Interfaces", "ShoeShop.Presentation.Interfaces\ShoeStore.Presentation.Interfaces.csproj", "{D8E81621-57F0-4ACD-A9F9-A3763E76F0A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoeStore.Presentation", "ShoeStore.Presentation\ShoeStore.Presentation.csproj", "{4D2E953B-FA58-4CBF-8EA4-59DF96695442}"
 EndProject

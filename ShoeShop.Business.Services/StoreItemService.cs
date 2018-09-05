@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShoeShop.Business.Services
 {
-    class StoreItemService : IStoreItemService
+    public class StoreItemService : IStoreItemService
     {
         private IStoreItemRepository _storeItemRepository;
 
