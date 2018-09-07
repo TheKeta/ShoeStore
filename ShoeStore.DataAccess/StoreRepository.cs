@@ -56,8 +56,7 @@ namespace ShoeStore.DataAccess
                 Id = (Guid)reader[0],
                 Name = (string)reader[1],
                 Address = (string)reader[2],
-                PhoneNumber = (string)reader[3],
-                Items = new List<Item>()
+                PhoneNumber = (string)reader[3]
             };
         }
 

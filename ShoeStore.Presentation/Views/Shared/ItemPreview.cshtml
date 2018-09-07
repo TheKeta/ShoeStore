@@ -1,18 +1,16 @@
-﻿@model ShoeStore.Models.Item
+﻿@model ShoeStore.Presentation.ViewModel.ItemVM
 
 <div class="card effect">
-    <a href="">
+    <a href="@Url.Action("Item", "Items", new { item = Model})">
         <h1>@Model.Model (@Model.Brand)</h1>
         <img src="" height="100" />
-        <table>
-            <tr>
-                <td>
-                    <p>@Model.Sex</p>
-                </td>
-                <td>
-                    <p>Cena</p>
-                </td>
-            </tr>
-        </table>
-    </a>
+        <div class="row">
+            <div class="col-md-6">
+                <p>@Model.Sex</p>
+            </div>
+            <div class="col-md-6">
+                <p>@Model.Price</p>
+            </div>
+        </div>
+     </a>
 </div>

@@ -1,17 +1,14 @@
-﻿@model ICollection<ShoeStore.Models.Store>
+﻿@model ICollection<ShoeStore.Presentation.ViewModel.StoreVM>
 @{
     ViewBag.Title = "Home Page";
 }
-@{
-    int currentNumber = 0;
-}
-    @foreach (var store in Model)
+@foreach (var store in Model)
+{
+    foreach (var item in store.Items)
     {
-        foreach (var item in store.Items)
-        {
-            @Html.Partial("ItemPreview", item)
-        }
+        @Html.Partial("ItemPreview", item)
     }
+}
 @*<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>

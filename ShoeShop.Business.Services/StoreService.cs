@@ -36,14 +36,16 @@ namespace ShoeShop.Business.Services
         {
             ICollection<Store> stores = _storeRepository.GetAll();
 
-            foreach(Store s in stores)
-            {
-                ICollection<StoreItem> si = _storeItemService.FindByStoreId(s.Id);
-                foreach(StoreItem sit in si)
-                {
-                    s.Items.Add(_itemService.FindById(sit.ItemId));
-                }
-            }
+            //foreach(Store s in stores)
+            //{
+            //    ICollection<StoreItem> si = _storeItemService.FindByStoreId(s.Id);
+            //    foreach(StoreItem sit in si)
+            //    {
+            //        Item item = _itemService.FindById(sit.ItemId);
+            //        item.Price = sit.Price;
+            //        s.Items.Add(item);
+            //    }
+            //}
             return stores;
         }
 

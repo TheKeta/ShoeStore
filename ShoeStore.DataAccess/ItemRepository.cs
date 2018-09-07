@@ -82,8 +82,7 @@ namespace ShoeStore.DataAccess
                 Brand = (string)reader[1],
                 Model = (string)reader[2],
                 Description = (string)reader[3],
-                Sex = (string)reader[4],
-                Images = new List<Picture>()
+                Sex = (string)reader[4]
             };
         }
 
