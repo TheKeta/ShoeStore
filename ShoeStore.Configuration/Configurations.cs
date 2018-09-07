@@ -8,6 +8,6 @@ namespace ShoeStore.Configuration
 {
     public static class Configurations
     {
-        public static string ConnectionString = "Data Source=(LocalDb)\\ShoeStoreDB;Initial Catalog=ShoeStoreDB;Persist Security Info=True;Integrated Security=SSPI;";
+        public static string ConnectionString = "Data Source=MGULA;Initial Catalog=ShoeStoreDB;Persist Security Info=True;Integrated Security=SSPI;";
     }
 }
