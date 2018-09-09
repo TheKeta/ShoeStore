@@ -11,5 +11,6 @@ namespace ShoeShop.Presentation.Interfaces
         void Update(StoreItem item);
         ICollection<StoreItem> GetAll();
         ICollection<StoreItem> FindByStoreId(Guid storeId);
+        StoreItem FindById(Guid id);
     }
 }

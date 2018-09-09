@@ -28,6 +28,12 @@ namespace ShoeShop.Business.Services
             return _storeItemRepository.FindByStoreId(storeId);
         }
 
+        public StoreItem FindById(Guid id)
+        {
+            return _storeItemRepository.FindById(id);
+        }
+
+
         public ICollection<StoreItem> GetAll()
         {
             return _storeItemRepository.GetAll();

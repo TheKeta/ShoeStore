@@ -29,7 +29,7 @@ namespace ShoeShop.Business.Services
 
         public Store FindById(Guid id)
         {
-            throw new NotImplementedException();
+            return _storeRepository.FindById(id);
         }
 
         public ICollection<Store> GetAll()

@@ -13,18 +13,19 @@ namespace ShoeStore.Presentation.Controllers
 {
     public class ItemsController : Controller
     {
-        private ItemConfiguration _itemConfig;
+        private Configuration.Configurations _itemConfig;
         private IItemService _itemService;
         private ItemMapper _itemMapper;
 
         public ItemsController()
         {
-            _itemConfig = new ItemConfiguration();
+            _itemConfig = new Configuration.Configurations();
             _itemService = _itemConfig.GetItemService();
-            _itemMapper = new ItemMapper();
+            _itemMapper = new ItemMapper(_itemConfig);
         }
-        public ActionResult Item(ItemVM item)
+        public ActionResult Item(Guid storeItemId)
         {
+            ItemVM item = _itemMapper.GetItemByStoreItemId(storeItemId);
             return View(item);
         }
     }

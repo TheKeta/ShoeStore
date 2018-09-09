@@ -14,6 +14,7 @@ namespace ShoeStore.DataAccess
         private string _connectionString;
         private string _insertCommand = "INSERT INTO Store(Id, Name, Address, PhoneNumber) VALUES(@Id, @Name, @Address, @PhoneNumber)";
         private string _getAll = "SELECT * FROM Stores";
+        private string _findById = "SELECT * FROM Stores WHERE Id=@Id";
 
         public StoreRepository(string connectionString)
         {
@@ -68,6 +69,22 @@ namespace ShoeStore.DataAccess
         public void Update(Store item)
         {
             throw new NotImplementedException();
+        }
+
+        public Store FindById(Guid id)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_findById, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", id);
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return _reader.Read() ? CreateStore(_reader) : null;
+                    }
+                }
+            }
         }
     }
 }
