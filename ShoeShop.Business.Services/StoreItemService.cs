@@ -23,9 +23,9 @@ namespace ShoeShop.Business.Services
             throw new NotImplementedException();
         }
 
-        public ICollection<StoreItem> FindByStoreId(Guid storeId)
+        public StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId)
         {
-            return _storeItemRepository.FindByStoreId(storeId);
+            return _storeItemRepository.FindByStoreIdAndItemId(storeId, itemId);
         }
 
         public StoreItem FindById(Guid id)

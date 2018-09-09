@@ -15,6 +15,7 @@ namespace ShoeStore.DataAccess
         private string _insertCommand = "INSERT INTO Store(Id, Name, Address, PhoneNumber) VALUES(@Id, @Name, @Address, @PhoneNumber)";
         private string _getAll = "SELECT * FROM Stores";
         private string _findById = "SELECT * FROM Stores WHERE Id=@Id";
+        private string _search = "SELECT * FROM Stores WHERE Name LIKE @Name";
 
         public StoreRepository(string connectionString)
         {
@@ -82,6 +83,22 @@ namespace ShoeStore.DataAccess
                     using (_reader = _command.ExecuteReader())
                     {
                         return _reader.Read() ? CreateStore(_reader) : null;
+                    }
+                }
+            }
+        }
+
+        public ICollection<Store> Search(string name)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_search, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Name", "%" + name + "%");
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return CreateStoreList(_reader);
                     }
                 }
             }

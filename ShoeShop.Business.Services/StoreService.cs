@@ -54,6 +54,11 @@ namespace ShoeShop.Business.Services
             throw new NotImplementedException();
         }
 
+        public ICollection<Store> Search(string name)
+        {
+            return _storeRepository.Search(name);
+        }
+
         public void Update(Store item)
         {
             throw new NotImplementedException();

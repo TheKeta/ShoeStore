@@ -14,7 +14,7 @@ namespace ShoeStore.DataAccess
         private string _connectionString;
         private string _insertCommand = "INSERT INTO StoreItems(Id, StoreId, ItemId, Price) VALUES(@Id, @StoreId, @ItemId, @Price)";
         private string _getAll = "SELECT * FROM StoreItems";
-        private string _findByStoreId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId";
+        private string _findByStoreIdAndItemId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId AND ItemId=@ItemId";
         private string _findById = "SELECT * FROM StoreItems WHERE Id=@Id";
         public StoreItemRepository(string connectionString)
         {
@@ -71,18 +71,18 @@ namespace ShoeStore.DataAccess
             throw new NotImplementedException();
         }
 
-        public ICollection<StoreItem> FindByStoreId(Guid storeId)
+        public StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId)
         {
             using (_connection = new SqlConnection(_connectionString))
             {
                 _connection.Open();
-                using (_command = new SqlCommand(_findByStoreId, _connection))
+                using (_command = new SqlCommand(_findByStoreIdAndItemId, _connection))
                 {
                     _command.Parameters.AddWithValue("@StoreId", storeId);
-
+                    _command.Parameters.AddWithValue("@ItemId", itemId);
                     using (_reader = _command.ExecuteReader())
                     {
-                        return CreateStoreItemList(_reader);
+                        return _reader.Read() ? CreateStoreItem(_reader) : null;
                     }
                 }
             }

@@ -35,16 +35,6 @@ namespace ShoeStore.Presentation.Mappers
             };
         }
 
-        //public ICollection<StoreVM> ConvertToStoreVM(ICollection<Store> stores)
-        //{
-        //    ICollection<StoreVM> _stores = new List<StoreVM>();
-        //    foreach (Store i in stores)
-        //    {
-        //        _stores.Add(ConvertToStoreVM(i));
-        //    }
-        //    return _stores;
-        //}
-
         public ICollection<StoreVM> InitializeStoresVM()
         {
             ICollection<Store> stores = _storeService.GetAll();
@@ -66,6 +56,41 @@ namespace ShoeStore.Presentation.Mappers
             return _stores;
         }
 
+        public ICollection<ItemVM> SortByPriceASC()
+        {
+            List<ItemVM> items = GetItemsVM();
+            items.Sort(delegate (ItemVM x, ItemVM y)
+            {
+                int a = x.Price.CompareTo(y.Price);
+                a = x.Brand.CompareTo(y.Brand);
+                return a;
+            });
+            return items;
+        }
+
+        public ICollection<ItemVM> SortByPriceDES()
+        {
+            List<ItemVM> items = GetItemsVM();
+            items.Sort(delegate (ItemVM x, ItemVM y)
+            {
+                int a = y.Price.CompareTo(x.Price);
+                a = x.Brand.CompareTo(y.Brand);
+                return a;
+            });
+            return items;
+        }
+
+        private List<ItemVM> GetItemsVM()
+        {
+            ICollection<StoreVM> stores = InitializeStoresVM();
+            List<ItemVM> items = new List<ItemVM>();
+            foreach (StoreVM svm in stores)
+            {
+                items.AddRange(svm.Items);
+            }
+            return items;
+
+        }
         private Item FindItemById(ICollection<Item> items,Guid itemID)
         {
             foreach(Item i in items)

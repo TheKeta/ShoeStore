@@ -10,7 +10,7 @@ namespace ShoeShop.Presentation.Interfaces
         bool Remove(StoreItem itemID);
         void Update(StoreItem item);
         ICollection<StoreItem> GetAll();
-        ICollection<StoreItem> FindByStoreId(Guid storeId);
+        StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId);
         StoreItem FindById(Guid id);
     }
 }

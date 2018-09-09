@@ -23,7 +23,7 @@ namespace ShoeStore.Presentation.Mappers
             _storeService = _itemConfig.GetStoreService();
             _storeItemService = _itemConfig.GetStoreItemService();
         }
-        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid stID)
+        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID)
         {
             return new ItemVM()
             {
@@ -34,7 +34,7 @@ namespace ShoeStore.Presentation.Mappers
                 Sex = item.Sex,
                 Price = price,
                 StoreName = storeName,
-                StoreItemId = stID
+                StoreItemId = siID
             };
         }
 
@@ -45,6 +45,33 @@ namespace ShoeStore.Presentation.Mappers
             Store store = _storeService.FindById(si.StoreId);
 
             return ConvertToVM(item, si.Price, store.Name, si.Id);
+        }
+
+        public ICollection<ItemVM> Search(string storeName, string model, string brand, string sex)
+        {
+            ICollection<ItemVM> _items = new List<ItemVM>();
+            //VALIDATION OF STRINGS, FOR SEX ONLY FIRST LETTER
+            storeName = string.IsNullOrWhiteSpace(storeName) ? "" : storeName;
+            model = string.IsNullOrWhiteSpace(model) ? "" : model;
+            brand = string.IsNullOrWhiteSpace(brand) ? "" : brand;
+            sex = string.IsNullOrWhiteSpace(sex) ? "" : sex.Substring(0,1);
+
+            ICollection<Item> items = _itemService.Search(model, brand, sex);
+            ICollection<Store> stores = _storeService.Search(storeName);
+
+            //possible optimization
+            foreach( Store s in stores)
+            {
+                foreach(Item i in items)
+                {
+                    StoreItem si = _storeItemService.FindByStoreIdAndItemId(s.Id, i.Id);
+                    if (si != null)
+                    {
+                        _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                    }
+                }
+            }
+            return _items;
         }
 
         //public ICollection<ItemVM> ConvertToVM(ICollection<Item> items,string storeName)

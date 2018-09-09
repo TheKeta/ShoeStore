@@ -14,5 +14,6 @@ namespace ShoeShop.Business.Interfaces
         void Update(Item item);
         ICollection<Item> GetAll();
         Item FindById(Guid id);
+        ICollection<Item> Search(string model, string brand, string sex);
     }
 }

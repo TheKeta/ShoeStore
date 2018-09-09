@@ -65,5 +65,10 @@ namespace ShoeShop.Business.Services
         {
             return _itemRepository.FindById(id);
         }
+
+        public ICollection<Item> Search(string model, string brand, string sex)
+        {
+            return _itemRepository.Search(model, brand, sex);
+        }
     }
 }

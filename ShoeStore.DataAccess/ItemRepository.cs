@@ -15,6 +15,7 @@ namespace ShoeStore.DataAccess
         private string _insertCommand = "INSERT INTO Items(Id, Brand, Model, Description, Sex) VALUES(@Id, @Brand, @Model, @Description, @Sex)";
         private string _getAll = "SELECT * FROM Items";
         private string _findById = "SELECT * FROM Items WHERE Id=@Id";
+        private string _search = "SELECT * FROM Items WHERE Model LIKE @Model AND Brand LiKE @Brand AND Sex LIKE @Sex";
 
         public ItemRepository(string connectionString)
         {
@@ -112,6 +113,25 @@ namespace ShoeStore.DataAccess
                     using (_reader = _command.ExecuteReader())
                     {
                         return _reader.Read() ? CreateItem(_reader) : null;
+                    }
+                }
+            }
+        }
+
+        public ICollection<Item> Search(string model, string brand, string sex)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_search, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Brand", "%" + brand + "%");
+                    _command.Parameters.AddWithValue("@Model", "%" + model + "%");
+                    _command.Parameters.AddWithValue("@Sex", sex + "%");
+
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return CreateItemList(_reader);
                     }
                 }
             }
