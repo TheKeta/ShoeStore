@@ -22,6 +22,16 @@ namespace ShoeStore.Configuration
             return new ItemRepository(ShoeStore.Configuration.StringConfigurations.ConnectionString);
         }
 
+        public IUserService GetUserService()
+        {
+            return new UserService(GetUserRepository());
+        }
+
+        public IUserRepository GetUserRepository()
+        {
+            return new UserRepository(ShoeStore.Configuration.StringConfigurations.ConnectionString);
+        }
+
         public IStoreService GetStoreService()
         {
             return new StoreService(GetStoreRepository(), GetItemService(), GetStoreItemService());

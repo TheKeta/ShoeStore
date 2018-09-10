@@ -1,4 +1,6 @@
-﻿using ShoeShop.Presentation.Interfaces;
+﻿using ShoeShop.Business.Interfaces;
+using ShoeShop.Presentation.Interfaces;
+using ShoeStore.Business.Services;
 using ShoeStore.Models;
 using System;
 using System.Collections.Generic;
@@ -8,11 +10,21 @@ using System.Threading.Tasks;
 
 namespace ShoeShop.Business.Services
 {
-    class UserService : IUserService
+    public class UserService : IUserService
     {
+        private PasswordService _passwordService;
+        private IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+            _passwordService = new PasswordService();
+        }
         public User Add(User user)
         {
-            throw new NotImplementedException();
+            user.Id = Guid.NewGuid();
+            user.Password = _passwordService.HashPassword(user.Password);
+            return _userRepository.Add(user);
         }
 
         public bool Remove(User userID)
