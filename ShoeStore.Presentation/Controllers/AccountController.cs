@@ -1,4 +1,5 @@
 ﻿using ShoeShop.Presentation.Interfaces;
+using ShoeStore.Models;
 using ShoeStore.Presentation.Mappers;
 using ShoeStore.Presentation.ViewModel;
 using System;
@@ -41,38 +42,29 @@ namespace ShoeStore.Presentation.Controllers
             }
             return View();
         }
-        
-        private bool ValidUser(UserVM user)
+
+        public ActionResult Login()
         {
-            if(string.IsNullOrWhiteSpace( user.FirstName))
+            return View(new UserVM());
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserVM user)
+        {
+            if(!string.IsNullOrWhiteSpace(user.Email) && !string.IsNullOrWhiteSpace(user.Password))
             {
-                return false;
+                User u = _userService.FindUser(_userMapper.ConvertToUser(user));
+                if (u == null)
+                {
+                    ModelState.AddModelError("", "Email and password does not match.");
+                    return View();
+                }
+                Session["userId"] = u.Id;
+                Session["userName"] = u.FirstName;
+                return Redirect("/");
             }
-            if (string.IsNullOrWhiteSpace(user.LastName))
-            {
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(user.Address))
-            {
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(user.Email))
-            {
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(user.Password))
-            {
-                return false;
-            }
-            if (string.IsNullOrWhiteSpace(user.PasswordConfirmation))
-            {
-                return false;
-            }
-            if (!user.Password.Equals(user.PasswordConfirmation))
-            {
-                return false;
-            }
-            return true;
+            ModelState.AddModelError("", "Fill all fields.");
+            return View();
         }
     }
 }

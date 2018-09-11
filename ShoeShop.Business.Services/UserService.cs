@@ -27,6 +27,12 @@ namespace ShoeShop.Business.Services
             return _userRepository.Add(user);
         }
 
+        public User FindUser(User user)
+        {
+            user.Password = _passwordService.HashPassword(user.Password);
+            return _userRepository.FindUser(user);
+        }
+
         public bool Remove(User userID)
         {
             throw new NotImplementedException();

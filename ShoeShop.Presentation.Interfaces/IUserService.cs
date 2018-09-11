@@ -8,5 +8,6 @@ namespace ShoeShop.Presentation.Interfaces
         User Add(User user);
         bool Remove(User userID);
         void Update(User user);
+        User FindUser(User user);
     }
 }
