@@ -12,5 +12,6 @@ namespace ShoeShop.Business.Interfaces
         AveableSize Add(AveableSize item);
         bool Remove(AveableSize itemID);
         void Update(AveableSize item);
+        ICollection<AveableSize> FindBySIId(Guid siId);
     }
 }

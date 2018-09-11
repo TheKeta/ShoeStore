@@ -28,5 +28,12 @@ namespace ShoeStore.Presentation.Controllers
             ItemVM item = _itemMapper.GetItemByStoreItemId(storeItemId);
             return View(item);
         }
+
+        [HttpPost]
+        public ActionResult Item(ItemVM item)
+        {
+            //add to cart
+            return View();
+        }
     }
 }
