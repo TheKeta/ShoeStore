@@ -32,7 +32,7 @@ namespace ShoeStore.DataAccess
                     _command.Parameters.AddWithValue("@Address", user.Address);
                     _command.Parameters.AddWithValue("@Email", user.Email);
                     _command.Parameters.AddWithValue("@Password", user.Password);
-                    _command.Parameters.AddWithValue("@Role", "REGULAR");
+                    _command.Parameters.AddWithValue("@Role", "ADMIN");
 
                     _command.ExecuteNonQuery();
                     return user;
