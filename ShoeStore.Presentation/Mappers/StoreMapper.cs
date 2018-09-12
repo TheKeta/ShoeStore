@@ -35,7 +35,7 @@ namespace ShoeStore.Presentation.Mappers
             };
         }
 
-        public ICollection<StoreVM> InitializeStoresVM()
+        private ICollection<StoreVM> InitializeStoresVM()
         {
             ICollection<Store> stores = _storeService.GetAll();
             ICollection<Item> items = _itemService.GetAll();
@@ -56,27 +56,17 @@ namespace ShoeStore.Presentation.Mappers
             return _stores;
         }
 
-        public ICollection<ItemVM> SortByPriceASC()
+        public ICollection<ItemVM> SortByPriceASC(List<ItemVM> items = null)
         {
-            List<ItemVM> items = GetItemsVM();
-            items.Sort(delegate (ItemVM x, ItemVM y)
-            {
-                int a = x.Price.CompareTo(y.Price);
-                a = x.Brand.CompareTo(y.Brand);
-                return a;
-            });
+            items = items==null ? GetItemsVM() : items;
+            items.Sort((x, y) => x.Price.CompareTo(y.Price));
             return items;
         }
 
-        public ICollection<ItemVM> SortByPriceDES()
+        public ICollection<ItemVM> SortByPriceDES(List<ItemVM> items = null)
         {
-            List<ItemVM> items = GetItemsVM();
-            items.Sort(delegate (ItemVM x, ItemVM y)
-            {
-                int a = y.Price.CompareTo(x.Price);
-                a = x.Brand.CompareTo(y.Brand);
-                return a;
-            });
+            items = items == null ? GetItemsVM() : items;
+            items.Sort((x, y) => y.Price.CompareTo(x.Price));
             return items;
         }
 

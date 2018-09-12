@@ -1,14 +1,24 @@
-﻿@model ICollection<ShoeStore.Presentation.ViewModel.StoreVM>
+﻿@model ICollection<ShoeStore.Presentation.ViewModel.ItemVM>
 @{
     ViewBag.Title = "Home Page";
 }
-@foreach (var store in Model)
-{
-    foreach (var item in store.Items)
-    {
-        @Html.Partial("ItemPreview", item)
-    }
-}
+
+<div class="row">
+    <div class="col-md-3">
+        <p>
+            Sort By Price:
+            <input type="button" value="&#x25B2;" onclick="location.href='@Url.Action("Ascending", "Home")'" class="btn btn-default"/>
+            <input type="button" value="&#x25BC;" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-default"/>
+        </p>
+        Search is going to be here
+    </div>
+    <div class="col-md-9">
+        @foreach (var item in Model)
+        {
+            @Html.Partial("ItemPreview", item)
+        }
+    </div>
+</div>
 @*<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>

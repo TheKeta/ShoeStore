@@ -13,5 +13,6 @@ namespace ShoeShop.Business.Interfaces
         bool Remove(User userID);
         void Update(User user);
         User FindUser(User user);
+        User FindById(Guid id);
     }
 }

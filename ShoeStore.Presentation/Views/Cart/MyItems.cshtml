@@ -1,0 +1,46 @@
+﻿@model ICollection<ShoeStore.Presentation.ViewModel.ItemVM>
+@{
+    ViewBag.Title = "Cart Items";
+}
+@{ 
+    string item_s;
+    if(Model.Count > 1)
+    {
+        item_s = "Items";
+    }
+    else
+    {
+        item_s = "Item";
+    }
+}
+
+@foreach(var item in Model)
+{
+    <div class="row">
+        <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})">
+            <div>
+                <p>
+                    @item.Brand
+                </p>
+            </div>
+            <div>
+                <p>
+                    @item.Model
+                </p>
+            </div>
+        </a>
+        <div>
+            <p>
+                @item.SelectedAverableSize.Size
+            </p>
+        </div>
+        <div>
+            <p>
+                @item.Price
+            </p>
+        </div>
+    </div>
+}
+
+
+<input type="button" value="Order @item_s" onclick="location.href='@Url.Action("Order", "Cart")'" />

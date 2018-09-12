@@ -33,6 +33,11 @@ namespace ShoeShop.Business.Services
             return _userRepository.FindUser(user);
         }
 
+        public User FindById(Guid id)
+        {
+            return _userRepository.FindById(id);
+        }
+
         public bool Remove(User userID)
         {
             throw new NotImplementedException();

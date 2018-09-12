@@ -1,4 +1,5 @@
 ﻿using ShoeStore.Models;
+using System;
 
 namespace ShoeShop.Presentation.Interfaces
 {
@@ -9,5 +10,6 @@ namespace ShoeShop.Presentation.Interfaces
         bool Remove(User userID);
         void Update(User user);
         User FindUser(User user);
+        User FindById(Guid id);
     }
 }

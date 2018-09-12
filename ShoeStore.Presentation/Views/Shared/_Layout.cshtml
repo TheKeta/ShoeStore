@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ShoeStore.Presentation.ViewModel
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,6 +8,13 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
+@{ 
+    int itemsInCart = 0;
+    if (Session["cart"] != null)
+    {
+        itemsInCart = ((ICollection<ItemVM>)Session["cart"]).Count;
+    }
+}
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -29,7 +37,7 @@
                     {
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                     }
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Items in cart: "+itemsInCart.ToString(), "MyItems", "Cart")</li>
                 </ul>
             </div>
         </div>
@@ -38,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Faculty of Technical Science Novi Sad</p>
         </footer>
     </div>
 

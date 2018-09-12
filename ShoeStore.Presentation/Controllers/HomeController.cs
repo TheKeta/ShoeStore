@@ -21,8 +21,14 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult Index()
         {
-            ICollection<StoreVM> storesVM = _storeMapper.InitializeStoresVM();
-            return View(storesVM);
+            ICollection<ItemVM> itemsVM = _storeMapper.SortByPriceDES();
+            return View(itemsVM);
+        }
+
+        public ActionResult Ascending()
+        {
+            ICollection<ItemVM> itemsVM = _storeMapper.SortByPriceASC();
+            return View("Index",itemsVM);
         }
 
         public ActionResult About()
@@ -38,5 +44,6 @@ namespace ShoeStore.Presentation.Controllers
 
             return View();
         }
+
     }
 }

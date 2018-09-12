@@ -16,12 +16,14 @@ namespace ShoeStore.Presentation.Controllers
         private Configuration.Configurations _itemConfig;
         private IItemService _itemService;
         private ItemMapper _itemMapper;
+        private CartMapper _cartMapper;
 
         public ItemsController()
         {
             _itemConfig = new Configuration.Configurations();
             _itemService = _itemConfig.GetItemService();
             _itemMapper = new ItemMapper(_itemConfig);
+            _cartMapper = new CartMapper();
         }
         public ActionResult Item(Guid storeItemId)
         {
@@ -33,7 +35,9 @@ namespace ShoeStore.Presentation.Controllers
         public ActionResult Item(ItemVM item)
         {
             //add to cart
-            return View();
+            _cartMapper.AddItemToCart(item, Session);
+            ItemVM oldItem = _itemMapper.GetItemByStoreItemId(item.StoreItemId);
+            return View(oldItem);
         }
     }
 }
