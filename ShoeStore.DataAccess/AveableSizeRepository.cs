@@ -12,7 +12,7 @@ namespace ShoeStore.DataAccess
         private SqlCommand _command;
         private SqlDataReader _reader;
         private string _connectionString;
-        private string _insertCommand = "INSERT INTO AveableSizes(Id, SIId, Size) VALUES(@Id, @SIId, @Size)";
+        private string _insertCommand = "INSERT INTO AveableSizes(Id, SIId, Size, Price) VALUES(@Id, @SIId, @Size, @Price)";
         private string _findBySIId = "SELECT * FROM AveableSizes WHERE SIId=@SIId";
         private string _findBySIIdAndSize = "SELECT * FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
 
@@ -31,6 +31,7 @@ namespace ShoeStore.DataAccess
                     _command.Parameters.AddWithValue("@Id", item.Id);
                     _command.Parameters.AddWithValue("@SIId", item.SIId);
                     _command.Parameters.AddWithValue("@Size", item.Size);
+                    _command.Parameters.AddWithValue("@Price", item.Price);
 
                     _command.ExecuteNonQuery();
                     return item;
@@ -81,7 +82,8 @@ namespace ShoeStore.DataAccess
             {
                 Id = (Guid)reader[0],
                 SIId = (Guid)reader[1],
-                Size = (double)reader[2]
+                Size = (double)reader[2],
+                Price =(double)reader[3]
             };
         }
 

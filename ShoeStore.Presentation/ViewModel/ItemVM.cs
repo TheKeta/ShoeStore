@@ -11,8 +11,7 @@ namespace ShoeStore.Presentation.ViewModel
     {
         public string StoreName { get; set; }
         public Guid StoreItemId { get; set; }
-        public double Price { get; set; }
-        public ICollection<AveableSize> AveableSizes { get; set; }
+        public List<AveableSize> AveableSizes { get; set; }
         public AveableSize SelectedAverableSize { get; set; }
     }
 }

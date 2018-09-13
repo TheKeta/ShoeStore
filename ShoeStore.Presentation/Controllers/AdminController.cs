@@ -61,22 +61,24 @@ namespace ShoeStore.Presentation.Controllers
             if (Validate(ns))
             {
                 StoreItem si = new StoreItem();
-                si.Price = ns.ItemToAdd.Price;
                 si.ItemId = ns.ItemToAdd.Id;
                 si.StoreId = ns.Store.Id;
                 si = _siService.Add(si);
                 AveableSize ass = new AveableSize();
                 ass.SIId = si.Id;
                 ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
+                ass.Price = ns.ItemToAdd.SelectedAverableSize.Price;
                 _asService.Add(ass);
                 return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
             }
             return View();
         }
 
+        //REMOVE ITEMA IZ STORA
+
         private bool Validate(NewStoreVM ns)
         {
-            if(ns.ItemToAdd == null || ns.ItemToAdd.Price <= 0 || ns.ItemToAdd.Id.Equals(new Guid()))
+            if(ns.ItemToAdd == null || ns.ItemToAdd.Id.Equals(new Guid()))
             {
                 return false;
             }
@@ -84,7 +86,8 @@ namespace ShoeStore.Presentation.Controllers
             {
                 return false;
             }
-            if(ns.ItemToAdd.SelectedAverableSize == null || ns.ItemToAdd.SelectedAverableSize.Size <= 0)
+            if(ns.ItemToAdd.SelectedAverableSize == null || ns.ItemToAdd.SelectedAverableSize.Size <= 0 ||
+                ns.ItemToAdd.SelectedAverableSize.Price <=0)
             {
                 return false;
             }
@@ -116,7 +119,7 @@ namespace ShoeStore.Presentation.Controllers
         {
             NewItemVM ni = new NewItemVM();
             ni.AllItems = _itemService.GetAll();
-            ni.Item = _itemMapper.ConvertToVM(_itemService.FindById(id),0,"",new Guid());
+            ni.Item = _itemMapper.ConvertToVM(_itemService.FindById(id),"",new Guid());
             return View("Index", ni);
         }
 

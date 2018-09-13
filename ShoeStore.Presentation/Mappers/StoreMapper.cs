@@ -49,7 +49,6 @@ namespace ShoeStore.Presentation.Mappers
         private ICollection<StoreVM> InitializeStoresVM()
         {
             ICollection<Store> stores = _storeService.GetAll();
-            ICollection<Item> items = _itemService.GetAll();
             ICollection<StoreItem> storeItems = _storeItemService.GetAll();
 
             ICollection<StoreVM> _stores = new List<StoreVM>();
@@ -59,8 +58,7 @@ namespace ShoeStore.Presentation.Mappers
                 ICollection<ItemVM> itemsOfStore = new List<ItemVM>();
                 foreach(StoreItem stItem in st)
                 {
-                    Item ite =FindItemById(items,stItem.ItemId);
-                    itemsOfStore.Add(_itemsMapper.ConvertToVM(ite, stItem.Price, s.Name, stItem.Id));
+                    itemsOfStore.Add(_itemsMapper.GetItemByStoreItemId(stItem.Id));
                 }
                 _stores.Add(ConvertToStoreVM(s, itemsOfStore));
             }
@@ -81,15 +79,15 @@ namespace ShoeStore.Presentation.Mappers
 
         public ICollection<ItemVM> SortByPriceASC(List<ItemVM> items = null)
         {
-            items = items==null ? GetItemsVM() : items;
-            items.Sort((x, y) => x.Price.CompareTo(y.Price));
+            items = items ==null ? GetItemsVM() : items;
+            items.Sort((x, y) => x.AveableSizes[0].Price.CompareTo(y.AveableSizes[0].Price));
             return items;
         }
 
         public ICollection<ItemVM> SortByPriceDES(List<ItemVM> items = null)
         {
             items = items == null ? GetItemsVM() : items;
-            items.Sort((x, y) => y.Price.CompareTo(x.Price));
+            items.Sort((x, y) => y.AveableSizes[0].Price.CompareTo(x.AveableSizes[0].Price));
             return items;
         }
 

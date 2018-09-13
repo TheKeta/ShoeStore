@@ -12,7 +12,7 @@ namespace ShoeStore.DataAccess
         private SqlCommand _command;
         private SqlDataReader _reader;
         private string _connectionString;
-        private string _insertCommand = "INSERT INTO StoreItems(Id, StoreId, ItemId, Price) VALUES(@Id, @StoreId, @ItemId, @Price)";
+        private string _insertCommand = "INSERT INTO StoreItems(Id, StoreId, ItemId) VALUES(@Id, @StoreId, @ItemId)";
         private string _getAll = "SELECT * FROM StoreItems";
         private string _findByStoreIdAndItemId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId AND ItemId=@ItemId";
         private string _findById = "SELECT * FROM StoreItems WHERE Id=@Id";
@@ -33,7 +33,6 @@ namespace ShoeStore.DataAccess
                     _command.Parameters.AddWithValue("@Id", item.Id);
                     _command.Parameters.AddWithValue("@StoreId", item.StoreId);
                     _command.Parameters.AddWithValue("@ItemId", item.ItemId);
-                    _command.Parameters.AddWithValue("@Price", item.Price);
 
                     _command.ExecuteNonQuery();
                     return item;
@@ -72,8 +71,7 @@ namespace ShoeStore.DataAccess
             {
                 Id = (Guid)reader[0],
                 StoreId = (Guid)reader[1],
-                ItemId = (Guid)reader[2],
-                Price = (double)reader[3]
+                ItemId = (Guid)reader[2]
             };
         }
 

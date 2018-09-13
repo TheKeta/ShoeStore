@@ -4,6 +4,7 @@ using ShoeStore.Models;
 using ShoeStore.Presentation.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,11 +27,9 @@ namespace ShoeStore.Presentation.Mappers
             _storeItemService = _itemConfig.GetStoreItemService();
             _availableSizeService = _itemConfig.GetAveableSizeService();
         }
-        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID, ICollection<AveableSize> ases = null)
+        public ItemVM ConvertToVM(Item item, string storeName, Guid siID, ICollection<AveableSize> ases = null)
         {
-            ases = ases == null ? new List<AveableSize>() : ases;
-            
-            ICollection<SelectListItem>  list = ases.Select(x => new SelectListItem() { Value = x.Size.ToString(), Text = x.Size.ToString() }).ToList();
+            ases = ases == null ? new List<AveableSize>() : ases as List<AveableSize>;
             return new ItemVM()
             {
                 Brand = item.Brand,
@@ -38,10 +37,9 @@ namespace ShoeStore.Presentation.Mappers
                 Id = item.Id,
                 Model = item.Model,
                 Sex = item.Sex,
-                Price = price,
                 StoreName = storeName,
                 StoreItemId = siID,
-                AveableSizes = ases
+                AveableSizes = ases as List<AveableSize>
             };
         }
 
@@ -64,7 +62,7 @@ namespace ShoeStore.Presentation.Mappers
             Store store = _storeService.FindById(si.StoreId);
             ICollection<AveableSize> ases = _availableSizeService.FindBySIId(si.Id);
 
-            return ConvertToVM(item, si.Price, store.Name, si.Id, ases);
+            return ConvertToVM(item, store.Name, si.Id, ases);
         }
 
         public ICollection<ItemVM> Search(string storeName, string model, string brand, string sex)
@@ -87,21 +85,11 @@ namespace ShoeStore.Presentation.Mappers
                     StoreItem si = _storeItemService.FindByStoreIdAndItemId(s.Id, i.Id);
                     if (si != null)
                     {
-                        _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                        _items.Add(ConvertToVM(i, s.Name, si.Id));
                     }
                 }
             }
             return _items;
         }
-
-        //public ICollection<ItemVM> ConvertToVM(ICollection<Item> items,string storeName)
-        //{
-        //    ICollection<ItemVM> _items = new List<ItemVM>();
-        //    foreach(Item i in items)
-        //    {
-        //        _items.Add(ConvertToVM(i,2.2, storeName)); //HARD
-        //    }
-        //    return _items;
-        //}
     }
 }
