@@ -24,7 +24,8 @@ namespace ShoeShop.Business.Services
         }
         public Store Add(Store item)
         {
-            throw new NotImplementedException();
+            item.Id = Guid.NewGuid();
+            return _storeRepository.Add(item);
         }
 
         public Store FindById(Guid id)
@@ -37,9 +38,9 @@ namespace ShoeShop.Business.Services
             return _storeRepository.GetAll();
         }
 
-        public bool Remove(Store itemID)
+        public bool Remove(Guid itemID)
         {
-            throw new NotImplementedException();
+            return _storeRepository.Remove(itemID);
         }
 
         public ICollection<Store> Search(string name)
@@ -49,7 +50,7 @@ namespace ShoeShop.Business.Services
 
         public void Update(Store item)
         {
-            throw new NotImplementedException();
+            _storeRepository.Update(item);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ShoeShop.Presentation.Interfaces
     public interface IStoreService
     {
         Store Add(Store item);
-        bool Remove(Store itemID);
+        bool Remove(Guid itemID);
         void Update(Store item);
         ICollection<Store> GetAll();
         Store FindById(Guid id);

@@ -12,5 +12,7 @@ namespace ShoeShop.Business.Interfaces
         ICollection<StoreItem> GetAll();
         StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId);
         StoreItem FindById(Guid id);
+        void RemoveByStoreId(Guid storeId);
+        void RemoveByItemId(Guid itemId);
     }
 }

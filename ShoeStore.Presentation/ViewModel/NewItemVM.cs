@@ -10,5 +10,11 @@ namespace ShoeStore.Presentation.ViewModel
     {
         public ItemVM Item { get; set; }
         public ICollection<Item> AllItems { get; set; }
+
+        public NewItemVM()
+        {
+            Item = new ItemVM();
+            AllItems = new List<Item>();
+        }
     }
 }

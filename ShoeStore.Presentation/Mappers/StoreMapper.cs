@@ -35,6 +35,17 @@ namespace ShoeStore.Presentation.Mappers
             };
         }
 
+        public Store ConvertFromStoreVM(StoreVM store)
+        {
+            return new Store()
+            {
+                Address = store.Address,
+                Id = store.Id,
+                Name = store.Name,
+                PhoneNumber = store.PhoneNumber
+            };
+        }
+
         private ICollection<StoreVM> InitializeStoresVM()
         {
             ICollection<Store> stores = _storeService.GetAll();
@@ -54,6 +65,18 @@ namespace ShoeStore.Presentation.Mappers
                 _stores.Add(ConvertToStoreVM(s, itemsOfStore));
             }
             return _stores;
+        }
+
+        public StoreVM FindItemsForStore(Store store)
+        {
+            ICollection<StoreItem> storeItems = _storeItemService.GetAll();
+            ICollection<StoreItem> st = FindStoreItemsForStore(storeItems, store.Id);
+            ICollection<ItemVM> itemsOfStore = new List<ItemVM>();
+            foreach (StoreItem stItem in st)
+            {
+                itemsOfStore.Add(_itemsMapper.GetItemByStoreItemId(stItem.Id));
+            }
+            return ConvertToStoreVM(store, itemsOfStore);
         }
 
         public ICollection<ItemVM> SortByPriceASC(List<ItemVM> items = null)

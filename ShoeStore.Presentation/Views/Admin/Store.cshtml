@@ -1,0 +1,88 @@
+﻿@model ShoeStore.Presentation.ViewModel.NewStoreVM
+@{
+    ViewBag.Title = "Store";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{ 
+    string numOfItems = "items";
+    if(Model.Store.Items.Count == 1)
+    {
+        numOfItems = "item";
+    }
+}
+
+<h2>
+    Store '@Model.Store.Name' has @Model.Store.Items.Count.ToString() @numOfItems.
+</h2>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <p>Item's ID</p>
+                    @Html.TextBoxFor(model => Model.ItemToAdd.Id, htmlAttributes: new { @class = "form-control input-sm", type = "text" })
+                </div>
+                <div class="form-group">
+                    <p>Price</p>
+                    @Html.TextBoxFor(model => Model.ItemToAdd.Price, htmlAttributes: new { @class = "form-control input-sm", type = "text" })
+                </div>
+                <div class="form-group">
+                    <p>Size</p>
+                    @Html.TextBoxFor(model => Model.ItemToAdd.SelectedAverableSize.Size, htmlAttributes: new { @class = "form-control input-sm", type = "text" })
+                </div>
+                    @Html.TextBoxFor(model => Model.Store.Id, htmlAttributes: new { @class = "", type = "hidden" })
+                <input type="submit" value="Add Item" class="btn btn-info btn-block">
+            }
+        </div>
+
+    </div>
+    <div class="col-lg-8">
+        <table width="100%">
+            <tr>
+                <th>
+                    <p><i>Brand</i></p>
+                </th>
+                <th>
+                    <p><i>Model</i></p>
+                </th>
+                <th>
+                    <p><i>Sex</i></p>
+                </th>
+                <th>
+                    <p><i>Aveable Sizes</i></p>
+                </th>
+                <th>
+                    <p><i>Id</i></p>
+                </th>
+                <th>
+                    <p><i>Remove</i></p>
+                </th>
+            </tr>
+            @foreach (var item in Model.Store.Items)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Brand</p>
+                    </td>
+                    <td>
+                        <p>@item.Model</p>
+                    </td>
+                    <td>
+                        <p>@item.Sex</p>
+                    </td>
+                    <td>
+                        <p>@Html.DropDownList("a", new SelectList(item.AveableSizes, "Size", "Size"), new {  @class="btn btn-default" })</p>
+                    </td>
+                    <td>
+                        <p>@item.Id</p>
+                    </td>
+                    <td>
+                        <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("Remove", "Admin", new { storeId = Model.Store.Id, itemId = item.Id })'" title="Removes item from this store" class="material-icons btn btn-warning" /></p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -29,12 +29,16 @@ namespace ShoeShop.Business.Services
 
         public bool Remove(Guid id)
         {
-            throw new NotImplementedException();
+            return _itemRepository.Remove(id);
         }
 
-        public void Update(Item id)
+        public void Update(Item item)
         {
-            throw new NotImplementedException();
+            if (Validate(item))
+            {
+                _itemRepository.Update(item);
+                return;
+            }
         }
 
         private bool Validate(Item item)

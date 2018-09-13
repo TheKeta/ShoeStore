@@ -20,7 +20,13 @@ namespace ShoeShop.Business.Services
 
         public StoreItem Add(StoreItem item)
         {
-            throw new NotImplementedException();
+            StoreItem old = _storeItemRepository.FindByStoreIdAndItemId(item.StoreId, item.ItemId);
+            if (old == null)
+            {
+                item.Id = Guid.NewGuid();
+                return _storeItemRepository.Add(item);
+            }
+            return old;
         }
 
         public StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId)
@@ -47,6 +53,16 @@ namespace ShoeShop.Business.Services
         public void Update(StoreItem item)
         {
             throw new NotImplementedException();
+        }
+
+        public void RemoveByStoreId(Guid storeId)
+        {
+            _storeItemRepository.RemoveByStoreId(storeId);
+        }
+
+        public void RemoveByItemId(Guid itemId)
+        {
+            _storeItemRepository.RemoveByItemId(itemId);
         }
     }
 }

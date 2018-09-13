@@ -91,7 +91,8 @@ namespace ShoeStore.DataAccess
                 FirstName = (string)reader[1],
                 LastName = (string)reader[2],
                 Address = (string)reader[3],
-                Email = (string)reader[4]
+                Email = (string)reader[4],
+                Role = (string)reader[5]
             };
         }
     }

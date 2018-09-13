@@ -62,6 +62,11 @@ namespace ShoeStore.Presentation.Controllers
                 Session["userId"] = u.Id;
                 Session["userName"] = u.FirstName;
                 //check if its admin => admin page
+                if (u.Role.Equals("ADMIN"))
+                {
+                    Session["admin"] = true;
+                    return Redirect("/Admin");
+                }
                 return Redirect("/");
             }
             ModelState.AddModelError("", "Fill all fields.");

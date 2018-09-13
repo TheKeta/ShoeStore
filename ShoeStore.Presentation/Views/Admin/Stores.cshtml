@@ -1,0 +1,86 @@
+﻿@model ShoeStore.Presentation.ViewModel.NewStoreVM
+@{
+    ViewBag.Title = "Stores";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string buttonText = "Add";
+    if (!Model.Store.Id.Equals(new Guid()))
+    {
+        buttonText = "Edit";
+    }
+}
+@*@if (Session["admin"] == null)
+    {
+        Response.Redirect("/");
+    }*@
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Store.Name, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Name", type = "text" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Store.Address, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Address", type = "text" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Store.PhoneNumber, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Phone Number", type = "text" })
+                </div>
+                @Html.TextBoxFor(model => Model.Store.Id, htmlAttributes: new { @class = "", type = "hidden" })
+                <input type="submit" value="@buttonText" class="btn btn-info btn-block">
+                if (buttonText.Equals("Edit"))
+                {
+                    <br />
+                    <p><i><input type="button" value="Cancel" onclick="location.href='@Url.Action("Stores", "Admin")'" class="btn btn-info btn-block" /></i></p>
+                }
+            }
+        </div>
+
+    </div>
+    <div class="col-lg-8">
+        <table width="100%">
+            <tr>
+                <th>
+                    <p><i>Name</i></p>
+                </th>
+                <th>
+                    <p><i>Address</i></p>
+                </th>
+                <th>
+                    <p><i>Phone Number</i></p>
+                </th>
+                <th>
+                    <p><i>Edit</i></p>
+                </th>
+                <th>
+                    <p><i>Delete</i></p>
+                </th>
+            </tr>
+            @foreach (var item in Model.AllStores)
+            {
+                <a href="@Url.Action("Store", "Admin", new { id = item.Id})">
+                    <tr>
+
+                        <th>
+                            <p><a href="@Url.Action("Store", "Admin", new { id = item.Id})">@item.Name</a></p>
+                        </th>
+                        <th>
+                            <p>@item.Address</p>
+                        </th>
+                        <th>
+                            <p>@item.PhoneNumber</p>
+                        </th>
+
+                        <th>
+                            <p><input type="button" value="&#xe869;" onclick="location.href='@Url.Action("EditS", "Admin", new { id = item.Id })'" class="material-icons btn btn-success" /></p>
+                        </th>
+                        <th>
+                            <p><input type="button" value="&#xe92b;" onclick="location.href='@Url.Action("RemoveS", "Admin", new { id = item.Id })'"  title="Removes links with all items"  class="material-icons btn btn-danger" /></p>
+                        </th>
+                    </tr>
+                </a>
+            }
+        </table>
+    </div>
+</div>

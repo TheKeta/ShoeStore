@@ -16,6 +16,8 @@ namespace ShoeStore.DataAccess
         private string _getAll = "SELECT * FROM Items";
         private string _findById = "SELECT * FROM Items WHERE Id=@Id";
         private string _search = "SELECT * FROM Items WHERE Model LIKE @Model AND Brand LiKE @Brand AND Sex LIKE @Sex";
+        private string _remove = "DELETE FROM Items WHERE Id=@Id";
+        private string _update = "UPDATE Items SET Brand=@Brand, Model=@Model, Description=@Description, Sex=@Sex WHERE Id=@Id";
 
         public ItemRepository(string connectionString)
         {
@@ -42,12 +44,36 @@ namespace ShoeStore.DataAccess
 
         public bool Remove(Guid itemID)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_remove, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", itemID);
+
+                    _command.ExecuteNonQuery();
+                    return true; 
+                }
+            }
         }
 
         public void Update(Item item)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_update, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", item.Id);
+                    _command.Parameters.AddWithValue("@Brand", item.Brand);
+                    _command.Parameters.AddWithValue("@Model", item.Model);
+                    _command.Parameters.AddWithValue("@Description", item.Description);
+                    _command.Parameters.AddWithValue("@Sex", item.Sex);
+
+                    _command.ExecuteNonQuery();
+                    return;
+                }
+            }
         }
 
         public ICollection<Item> GetAll()

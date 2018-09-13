@@ -16,13 +16,29 @@ namespace ShoeStore.DataAccess
         private string _getAll = "SELECT * FROM StoreItems";
         private string _findByStoreIdAndItemId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId AND ItemId=@ItemId";
         private string _findById = "SELECT * FROM StoreItems WHERE Id=@Id";
+        private string _removeByStoreId = "DELETE FROM StoreItems WHERE StoreId=@StoreId";
+        private string _removeByItemId = "DELETE FROM StoreItems WHERE ItemId=@ItemId";
+
         public StoreItemRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
         public StoreItem Add(StoreItem item)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_insertCommand, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", item.Id);
+                    _command.Parameters.AddWithValue("@StoreId", item.StoreId);
+                    _command.Parameters.AddWithValue("@ItemId", item.ItemId);
+                    _command.Parameters.AddWithValue("@Price", item.Price);
+
+                    _command.ExecuteNonQuery();
+                    return item;
+                }
+            }
         }
 
         public ICollection<StoreItem> GetAll()
@@ -100,6 +116,36 @@ namespace ShoeStore.DataAccess
                     {
                         return _reader.Read() ? CreateStoreItem(_reader) : null;
                     }
+                }
+            }
+        }
+
+        public void RemoveByStoreId(Guid storeId)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_removeByStoreId, _connection))
+                {
+                    _command.Parameters.AddWithValue("@StoreId", storeId);
+
+                    _command.ExecuteNonQuery();
+                    return;
+                }
+            }
+        }
+
+        public void RemoveByItemId(Guid itemId)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_removeByItemId, _connection))
+                {
+                    _command.Parameters.AddWithValue("@ItemId", itemId);
+
+                    _command.ExecuteNonQuery();
+                    return;
                 }
             }
         }

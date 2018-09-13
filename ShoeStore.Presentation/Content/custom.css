@@ -57,6 +57,15 @@ p {
     font-weight: bold;
 }
 
+h2 {
+    font-family: Gill Sans, Verdana;
+    font-size: 18px;
+    line-height: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
 h1 {
     font-family: times, Times New Roman, times-roman, georgia, serif;
     color: #444;

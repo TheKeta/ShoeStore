@@ -45,6 +45,18 @@ namespace ShoeStore.Presentation.Mappers
             };
         }
 
+        public Item ConvertFromVM(ItemVM item)
+        {
+            return new Item()
+            {
+                Brand = item.Brand,
+                Description = item.Description,
+                Id = item.Id,
+                Model = item.Model,
+                Sex = item.Sex
+            };
+        }
+
         public ItemVM GetItemByStoreItemId(Guid storeItemId)
         {
             StoreItem si = _storeItemService.FindById(storeItemId);
