@@ -14,6 +14,7 @@ namespace ShoeStore.DataAccess
         private string _connectionString;
         private string _insertCommand = "INSERT INTO AveableSizes(Id, SIId, Size) VALUES(@Id, @SIId, @Size)";
         private string _findBySIId = "SELECT * FROM AveableSizes WHERE SIId=@SIId";
+        private string _findBySIIdAndSize = "SELECT * FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
 
         public AveableSizeRepository(string connectionString)
         {
@@ -22,7 +23,19 @@ namespace ShoeStore.DataAccess
 
         public AveableSize Add(AveableSize item)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_insertCommand, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", item.Id);
+                    _command.Parameters.AddWithValue("@SIId", item.SIId);
+                    _command.Parameters.AddWithValue("@Size", item.Size);
+
+                    _command.ExecuteNonQuery();
+                    return item;
+                }
+            }
         }
 
         public ICollection<AveableSize> FindBySIId(Guid siId)
@@ -70,6 +83,23 @@ namespace ShoeStore.DataAccess
                 SIId = (Guid)reader[1],
                 Size = (double)reader[2]
             };
+        }
+
+        public AveableSize FindBySIIdAndSize(Guid siId, double size)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_findBySIIdAndSize, _connection))
+                {
+                    _command.Parameters.AddWithValue("@SIId", siId);
+                    _command.Parameters.AddWithValue("@Size", size);
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return _reader.Read() ? CreateAveableSize(_reader) : null;
+                    }
+                }
+            }
         }
     }
 }

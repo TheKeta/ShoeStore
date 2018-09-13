@@ -58,16 +58,37 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Store(NewStoreVM ns)
         {
-            StoreItem si = new StoreItem();
-            si.Price = ns.ItemToAdd.Price;
-            si.ItemId = ns.ItemToAdd.Id;
-            si.StoreId = ns.Store.Id;
-            si = _siService.Add(si);
-            AveableSize ass = new AveableSize();
-            ass.SIId = si.Id;
-            ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
-            _asService.Add(ass);
-            return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
+            if (Validate(ns))
+            {
+                StoreItem si = new StoreItem();
+                si.Price = ns.ItemToAdd.Price;
+                si.ItemId = ns.ItemToAdd.Id;
+                si.StoreId = ns.Store.Id;
+                si = _siService.Add(si);
+                AveableSize ass = new AveableSize();
+                ass.SIId = si.Id;
+                ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
+                _asService.Add(ass);
+                return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
+            }
+            return View();
+        }
+
+        private bool Validate(NewStoreVM ns)
+        {
+            if(ns.ItemToAdd == null || ns.ItemToAdd.Price <= 0 || ns.ItemToAdd.Id.Equals(new Guid()))
+            {
+                return false;
+            }
+            if (ns.Store == null || ns.Store.Id.Equals(new Guid()))
+            {
+                return false;
+            }
+            if(ns.ItemToAdd.SelectedAverableSize == null || ns.ItemToAdd.SelectedAverableSize.Size <= 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         [HttpPost]

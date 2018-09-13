@@ -20,7 +20,15 @@ namespace ShoeShop.Business.Services
 
         public AveableSize Add(AveableSize item)
         {
-            throw new NotImplementedException();
+            //proveriti da li ima taj ssid sa tom velicinom
+            AveableSize ass = _aveableSizeRepository.FindBySIIdAndSize(item.SIId, item.Size);
+            if (ass == null)
+            {
+                item.Id = Guid.NewGuid();
+                return _aveableSizeRepository.Add(item);
+            }
+            return ass;
+            
         }
 
         public ICollection<AveableSize> FindBySIId(Guid siId)
