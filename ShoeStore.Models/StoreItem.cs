@@ -11,6 +11,6 @@ namespace ShoeStore.Models
         public Guid Id { get; set; }
         public Guid StoreId { get; set; }
         public Guid ItemId { get; set; }
-       // public ICollection<AveableSize> AveableSizes { get; set; }
+        public double Price { get; set; }
     }
 }

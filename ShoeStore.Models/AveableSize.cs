@@ -11,6 +11,5 @@ namespace ShoeStore.Models
         public Guid Id { get; set; }
         public Guid SIId { get; set; } //store_item ID
         public double Size { get; set; }
-        public double Price { get; set; }
     }
 }

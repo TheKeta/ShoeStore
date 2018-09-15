@@ -80,14 +80,14 @@ namespace ShoeStore.Presentation.Mappers
         public ICollection<ItemVM> SortByPriceASC(List<ItemVM> items = null)
         {
             items = items ==null ? GetItemsVM() : items;
-            items.Sort((x, y) => x.AveableSizes[0].Price.CompareTo(y.AveableSizes[0].Price));
+            items.Sort((x, y) => x.Price.CompareTo(y.Price));
             return items;
         }
 
         public ICollection<ItemVM> SortByPriceDES(List<ItemVM> items = null)
         {
             items = items == null ? GetItemsVM() : items;
-            items.Sort((x, y) => y.AveableSizes[0].Price.CompareTo(x.AveableSizes[0].Price));
+            items.Sort((x, y) => y.Price.CompareTo(x.Price));
             return items;
         }
 
