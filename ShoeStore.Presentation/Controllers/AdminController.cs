@@ -58,27 +58,44 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Store(NewStoreVM ns)
         {
-            if (Validate(ns))
+
+            if (Request.Form["add"] != null)
             {
-                StoreItem si = new StoreItem();
-                si.Price = ns.ItemToAdd.Price;
-                si.ItemId = ns.ItemToAdd.Id;
-                si.StoreId = ns.Store.Id;
-                si = _siService.Add(si);
-                AveableSize ass = new AveableSize();
-                ass.SIId = si.Id;
-                ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
-                _asService.Add(ass);
-                return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
+                //Add form
+                if (Validate(ns))
+                {
+                    StoreItem si = new StoreItem();
+                    si.ItemId = ns.ItemToAdd.Id;
+                    si.StoreId = ns.Store.Id;
+                    si.Price = ns.ItemToAdd.Price;
+                    si = _siService.Add(si);
+                    AveableSize ass = new AveableSize();
+                    ass.SIId = si.Id;
+                    ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
+                    _asService.Add(ass);
+                    return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
+                }
             }
-            return View();
+            else if (Request.Form["remove"] != null)
+            {
+                if (Validate(ns))
+                {
+                    //remove size from item
+                    StoreItem si = _siService.FindByStoreIdAndItemId(ns.Store.Id, ns.ItemToAdd.Id);
+                    if (si != null)
+                    {
+                        _asService.RemoveBySIIdAndSize(si.Id, ns.ItemToAdd.SelectedAverableSize.Size);
+                        return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
+                    }
+                }
+            }
+            return Redirect("/Admin/Store/" + ns.Store.Id.ToString());
         }
 
-        //REMOVE ITEMA IZ STORA
 
         private bool Validate(NewStoreVM ns)
         {
-            if (ns.ItemToAdd == null || ns.ItemToAdd.Price <= 0 || ns.ItemToAdd.Id.Equals(new Guid()))
+            if (ns.ItemToAdd == null || ns.ItemToAdd.Id.Equals(new Guid()))
             {
                 return false;
             }
@@ -149,6 +166,12 @@ namespace ShoeStore.Presentation.Controllers
             _siService.RemoveByStoreId(id);
             _storeService.Remove(id);
             return Redirect("/Admin/Stores");
+        }
+
+        public ActionResult RemoveItemFromStore(Guid storeId, Guid itemId)
+        {
+            _siService.RemoveByStoreIdAndItemId(storeId, itemId);
+            return Redirect("/Admin/Store/" + storeId.ToString());
         }
     }
 }

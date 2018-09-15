@@ -12,10 +12,12 @@ namespace ShoeShop.Business.Services
     public class StoreItemService : IStoreItemService
     {
         private IStoreItemRepository _storeItemRepository;
+        private IAveableSizeService _asService;
 
-        public StoreItemService(IStoreItemRepository storeItemRepository)
+        public StoreItemService(IStoreItemRepository storeItemRepository, IAveableSizeService asService)
         {
             _storeItemRepository = storeItemRepository;
+            _asService = asService;
         }
 
         public StoreItem Add(StoreItem item)
@@ -63,6 +65,22 @@ namespace ShoeShop.Business.Services
         public void RemoveByItemId(Guid itemId)
         {
             _storeItemRepository.RemoveByItemId(itemId);
+        }
+
+        public void RemoveByStoreIdAndItemId(Guid storeId, Guid itemId)
+        {
+            StoreItem si = _storeItemRepository.FindByStoreIdAndItemId(storeId, itemId);
+            ICollection<AveableSize> sizes = _asService.FindBySIId(si.Id);
+            foreach(AveableSize a in sizes)
+            {
+                _asService.RemoveBySIIdAndSize(a.SIId, a.Size);
+            }
+            _storeItemRepository.Remove(si.Id);
+        }
+
+        public StoreItem FindByStoreIdAndItemIdAndPriceBetween(Guid storeId, Guid itemId, double minPrice, double maxPrice)
+        {
+            return _storeItemRepository.FindByStoreIdAndItemIdAndPriceBetween(storeId, itemId, minPrice, maxPrice);
         }
     }
 }

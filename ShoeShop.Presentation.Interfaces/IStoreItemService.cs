@@ -11,8 +11,10 @@ namespace ShoeShop.Presentation.Interfaces
         void Update(StoreItem item);
         ICollection<StoreItem> GetAll();
         StoreItem FindByStoreIdAndItemId(Guid storeId, Guid itemId);
+        StoreItem FindByStoreIdAndItemIdAndPriceBetween(Guid storeId, Guid itemId, double minPrice, double maxPrice);
         StoreItem FindById(Guid id);
         void RemoveByStoreId(Guid storeId);
         void RemoveByItemId(Guid itemId);
+        void RemoveByStoreIdAndItemId(Guid storeId, Guid itemId);
     }
 }

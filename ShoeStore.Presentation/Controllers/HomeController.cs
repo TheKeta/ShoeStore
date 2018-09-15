@@ -12,23 +12,39 @@ namespace ShoeStore.Presentation.Controllers
     {
         private Configuration.Configurations _itemConfig;
         private StoreMapper _storeMapper;
+        private ItemMapper _itemMapper;
 
         public HomeController()
         {
             _itemConfig = new Configuration.Configurations();
             _storeMapper = new StoreMapper(_itemConfig);
+            _itemMapper = new ItemMapper(_itemConfig);
         }
 
         public ActionResult Index()
         {
-            ICollection<ItemVM> itemsVM = _storeMapper.SortByPriceDES();
-            return View(itemsVM);
+            HomeModel hm = new HomeModel();
+            hm.ItemsVM = _storeMapper.SortByPriceDES();
+            return View(hm);
         }
 
         public ActionResult Ascending()
         {
-            ICollection<ItemVM> itemsVM = _storeMapper.SortByPriceASC();
-            return View("Index",itemsVM);
+            HomeModel hm = new HomeModel();
+            hm.ItemsVM = _storeMapper.SortByPriceASC();
+            return View("Index",hm);
+        }
+
+        [HttpPost]
+        public ActionResult Search(SearchItem searchItem)
+        {
+            HomeModel hm = new HomeModel();
+
+            ICollection<ItemVM> items = _itemMapper.Search(searchItem.StoreName, searchItem.Model,
+                searchItem.Brand, searchItem.Sex, searchItem.MinPrice, searchItem.MaxPrice, searchItem.Size);
+            hm.ItemsVM = items;
+
+            return View("Index", hm);
         }
 
         public ActionResult About()

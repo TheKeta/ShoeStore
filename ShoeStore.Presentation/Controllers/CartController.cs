@@ -36,6 +36,25 @@ namespace ShoeStore.Presentation.Controllers
             return View(u);
         }
 
+        public ActionResult RemoveItemFromCart(Guid siId, double size)
+        {
+            ICollection<ItemVM> items = new List<ItemVM>();
+            bool first = false;
+            foreach (ItemVM item in (ICollection<ItemVM>)Session["cart"])
+            {
+                if (!item.StoreItemId.Equals(siId) || !size.Equals(item.SelectedAverableSize.Size) || first)
+                {
+                    items.Add(item);
+                }
+                else if (item.StoreItemId.Equals(siId))
+                {
+                    first = true;
+                }
+            }
+            Session["cart"] = items;
+            return Redirect("MyItems");
+        }
+
         [HttpPost]
         public ActionResult Order(User user)
         {

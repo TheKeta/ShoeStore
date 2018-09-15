@@ -54,7 +54,7 @@ namespace ShoeStore.Configuration
 
         public IStoreItemService GetStoreItemService()
         {
-            return new StoreItemService(GetStoreItemRepository());
+            return new StoreItemService(GetStoreItemRepository(), GetAveableSizeService());
         }
 
         public IStoreItemRepository GetStoreItemRepository()

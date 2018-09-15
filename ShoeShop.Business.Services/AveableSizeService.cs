@@ -31,6 +31,11 @@ namespace ShoeShop.Business.Services
             
         }
 
+        public bool RemoveBySIIdAndSize(Guid siId, double size)
+        {
+            return _aveableSizeRepository.RemoveBySIIdAndSize(siId, size);
+        }
+
         public ICollection<AveableSize> FindBySIId(Guid siId)
         {
             return _aveableSizeRepository.FindBySIId(siId);
@@ -44,6 +49,11 @@ namespace ShoeShop.Business.Services
         public void Update(AveableSize item)
         {
             throw new NotImplementedException();
+        }
+
+        public AveableSize FindBySIIdAndSize(Guid siId, double size)
+        {
+            return _aveableSizeRepository.FindBySIIdAndSize(siId, size);
         }
     }
 }

@@ -33,7 +33,10 @@
                     @Html.TextBoxFor(model => Model.ItemToAdd.SelectedAverableSize.Size, htmlAttributes: new { @class = "form-control input-sm", type = "text" })
                 </div>
                     @Html.TextBoxFor(model => Model.Store.Id, htmlAttributes: new { @class = "", type = "hidden" })
-                <input type="submit" value="Add Item" class="btn btn-info btn-block">
+                <div>
+                    <input type="submit" value="Remove Size" name="remove" class="btn btn-warning btn-block">
+                    <input type="submit" value="Add" name="add" title="Add new Item or new size for existing item." class="btn btn-info btn-block">
+                </div>
             }
         </div>
 
@@ -79,7 +82,7 @@
                         <p>@item.Id</p>
                     </td>
                     <td>
-                        <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("Remove", "Admin", new { storeId = Model.Store.Id, itemId = item.Id })'" title="Removes item from this store" class="material-icons btn btn-warning" /></p>
+                        <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("RemoveItemFromStore", "Admin", new { storeId = Model.Store.Id, itemId = item.Id })'" title="Removes item from this store" class="material-icons btn btn-warning" /></p>
                     </td>
                 </tr>
             }

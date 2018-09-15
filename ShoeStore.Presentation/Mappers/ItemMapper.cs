@@ -61,12 +61,13 @@ namespace ShoeStore.Presentation.Mappers
             StoreItem si = _storeItemService.FindById(storeItemId);
             Item item = _itemService.FindById(si.ItemId);
             Store store = _storeService.FindById(si.StoreId);
-            ICollection<AveableSize> ases = _availableSizeService.FindBySIId(si.Id);
-
+            List<AveableSize> ases = (List<AveableSize>) _availableSizeService.FindBySIId(si.Id);
+            ases.Sort((x, y) => x.Size.CompareTo(y.Size));
             return ConvertToVM(item, si.Price, store.Name, si.Id, ases);
         }
 
-        public ICollection<ItemVM> Search(string storeName, string model, string brand, string sex)
+        public ICollection<ItemVM> Search(string storeName, string model, string brand,
+            string sex, double minPrice, double maxPrice, double size)
         {
             ICollection<ItemVM> _items = new List<ItemVM>();
             //VALIDATION OF STRINGS, FOR SEX ONLY FIRST LETTER
@@ -74,6 +75,8 @@ namespace ShoeStore.Presentation.Mappers
             model = string.IsNullOrWhiteSpace(model) ? "" : model;
             brand = string.IsNullOrWhiteSpace(brand) ? "" : brand;
             sex = string.IsNullOrWhiteSpace(sex) ? "" : sex.Substring(0,1);
+            maxPrice = maxPrice <= 0 ? Double.MaxValue : maxPrice;
+            size = size <= 0 ? 0 : size;
 
             ICollection<Item> items = _itemService.Search(model, brand, sex);
             ICollection<Store> stores = _storeService.Search(storeName);
@@ -83,10 +86,21 @@ namespace ShoeStore.Presentation.Mappers
             {
                 foreach(Item i in items)
                 {
-                    StoreItem si = _storeItemService.FindByStoreIdAndItemId(s.Id, i.Id);
+                    StoreItem si = _storeItemService.FindByStoreIdAndItemIdAndPriceBetween(s.Id, i.Id,minPrice, maxPrice);
                     if (si != null)
                     {
-                        _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                        if (size > 0)
+                        {
+                            AveableSize asa = _availableSizeService.FindBySIIdAndSize(si.Id, size);
+                            if (asa != null)
+                            {
+                                _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                            }
+                        }
+                        else
+                        {
+                            _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                        }
                     }
                 }
             }

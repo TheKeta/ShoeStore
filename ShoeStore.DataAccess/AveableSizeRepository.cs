@@ -15,6 +15,9 @@ namespace ShoeStore.DataAccess
         private string _insertCommand = "INSERT INTO AveableSizes(Id, SIId, Size) VALUES(@Id, @SIId, @Size)";
         private string _findBySIId = "SELECT * FROM AveableSizes WHERE SIId=@SIId";
         private string _findBySIIdAndSize = "SELECT * FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
+        private string _removeBySIIdAndSize = "DELETE FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
+        private string _remove = "DELETE FROM AveableSizes WHERE Id=@Id";
+
 
         public AveableSizeRepository(string connectionString)
         {
@@ -38,6 +41,21 @@ namespace ShoeStore.DataAccess
             }
         }
 
+        public bool RemoveBySIIdAndSize(Guid siId, double size)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_removeBySIIdAndSize, _connection))
+                {
+                    _command.Parameters.AddWithValue("@SIId", siId);
+                    _command.Parameters.AddWithValue("@Size", size);
+                    _command.ExecuteNonQuery();
+                    return true;
+                }
+            }
+        }
+
         public ICollection<AveableSize> FindBySIId(Guid siId)
         {
             using (_connection = new SqlConnection(_connectionString))
@@ -55,9 +73,18 @@ namespace ShoeStore.DataAccess
             }
         }
 
-        public bool Remove(AveableSize itemID)
+        public bool Remove(Guid itemID)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_remove, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", itemID);
+                    _command.ExecuteNonQuery();
+                    return true;
+                }
+            }
         }
 
         public void Update(AveableSize item)

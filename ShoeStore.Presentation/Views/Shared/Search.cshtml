@@ -5,3 +5,34 @@
     -brendu patika
     -muske / zenske
     *@
+@model ShoeStore.Presentation.ViewModel.SearchItem
+<div class="panel-body">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.TextBoxFor(model => Model.StoreName, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Store Name", type = "text" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => Model.Brand, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Brand", type = "text" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => Model.Model, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Model", type = "text" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => Model.Sex, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Sex", type = "text" })
+        </div>
+        <div class="form-group">
+            <p>Size</p>
+            @Html.TextBoxFor(model => Model.Size, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Size", type = "text" })
+        </div>
+        <div class="form-group">
+            <p>Minimum Price</p>
+            @Html.TextAreaFor(model => Model.MinPrice, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Minimum Price", type = "text" })
+        </div>
+        <div class="form-group">
+            <p>Maximum Price</p>
+            @Html.TextAreaFor(model => Model.MaxPrice, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Maximum Price", type = "text" })
+        </div>
+        <input type="submit" value="Search" class="btn btn-info btn-block">
+    }
+</div>

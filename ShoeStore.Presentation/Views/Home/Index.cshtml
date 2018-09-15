@@ -1,4 +1,5 @@
-﻿@model ICollection<ShoeStore.Presentation.ViewModel.ItemVM>
+﻿@model ShoeStore.Presentation.ViewModel.HomeModel
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -10,10 +11,10 @@
             <input type="button" value="&#x25B2;" onclick="location.href='@Url.Action("Ascending", "Home")'" class="btn btn-default"/>
             <input type="button" value="&#x25BC;" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-default"/>
         </p>
-        Search is going to be here
+        @Html.Partial("Search", Model.SearchModel)
     </div>
     <div class="col-md-9">
-        @foreach (var item in Model)
+        @foreach (var item in Model.ItemsVM)
         {
             @Html.Partial("ItemPreview", item)
         }

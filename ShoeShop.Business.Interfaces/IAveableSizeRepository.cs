@@ -10,9 +10,11 @@ namespace ShoeShop.Business.Interfaces
     public interface IAveableSizeRepository
     {
         AveableSize Add(AveableSize item);
-        bool Remove(AveableSize itemID);
+        bool Remove(Guid itemID);
         void Update(AveableSize item);
         ICollection<AveableSize> FindBySIId(Guid siId);
         AveableSize FindBySIIdAndSize(Guid siId, double size);
+        bool RemoveBySIIdAndSize(Guid siId, double size);
+
     }
 }

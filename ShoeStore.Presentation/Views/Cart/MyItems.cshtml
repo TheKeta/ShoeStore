@@ -14,33 +14,41 @@
     }
 }
 
-@foreach(var item in Model)
-{
-    <div class="row">
-        <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})">
-            <div>
-                <p>
-                    @item.Brand
-                </p>
-            </div>
-            <div>
-                <p>
-                    @item.Model
-                </p>
-            </div>
-        </a>
-        <div>
-            <p>
-                @item.SelectedAverableSize.Size
-            </p>
-        </div>
-        <div>
-            <p>
-                @item.Price
-            </p>
-        </div>
-    </div>
-}
+<div class="col-lg-12">
+    <table width="100%">
+        <tr>
+            <th>
+                <p><i>Brand</i></p>
+            </th>
+            <th>
+                <p><i>Model</i></p>
+            </th>
+            <th>
+                <p><i>Size</i></p>
+            </th>
+            <th>
+                <p><i>Remove</i></p>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@item.Brand</p>
+                </td>
+                <td>
+                    <p>@item.Model</p>
+                </td>
+                <td>
+                    <p>@item.SelectedAverableSize.Size</p>
+                </td>
+                <td>
+                    <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("RemoveItemFromCart", "Cart", new { siId = item.StoreItemId, size = item.SelectedAverableSize.Size })'" class="material-icons btn btn-warning" /></p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
 
-<input type="button" value="Order @item_s" onclick="location.href='@Url.Action("Order", "Cart")'" />
+<p></p><input type="button" value="Order @item_s" onclick="location.href='@Url.Action("Order", "Cart")'" class="btn btn-success" /></p>

@@ -15,9 +15,11 @@ namespace ShoeStore.DataAccess
         private string _insertCommand = "INSERT INTO StoreItems(Id, StoreId, ItemId, Price) VALUES(@Id, @StoreId, @ItemId, @Price)";
         private string _getAll = "SELECT * FROM StoreItems";
         private string _findByStoreIdAndItemId = "SELECT * FROM StoreItems WHERE StoreId=@StoreId AND ItemId=@ItemId";
+        private string _findByStoreIdAndItemIdAndPriceBetween = "SELECT * FROM StoreItems WHERE StoreId=@StoreId AND ItemId=@ItemId AND Price BETWEEN @MinPrice AND @MaxPrice";
         private string _findById = "SELECT * FROM StoreItems WHERE Id=@Id";
         private string _removeByStoreId = "DELETE FROM StoreItems WHERE StoreId=@StoreId";
         private string _removeByItemId = "DELETE FROM StoreItems WHERE ItemId=@ItemId";
+        private string _remove = "DELETE FROM StoreItems WHERE Id=@Id";
 
         public StoreItemRepository(string connectionString)
         {
@@ -77,9 +79,19 @@ namespace ShoeStore.DataAccess
             };
         }
 
-        public bool Remove(StoreItem itemID)
+        public bool Remove(Guid itemID)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_remove, _connection))
+                {
+                    _command.Parameters.AddWithValue("@Id", itemID);
+
+                    _command.ExecuteNonQuery();
+                    return true;
+                }
+            }
         }
 
         public void Update(StoreItem item)
@@ -146,6 +158,26 @@ namespace ShoeStore.DataAccess
 
                     _command.ExecuteNonQuery();
                     return;
+                }
+            }
+        }
+
+        public StoreItem FindByStoreIdAndItemIdAndPriceBetween(Guid storeId, Guid itemId, double minPrice, double maxPrice)
+        {
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_findByStoreIdAndItemIdAndPriceBetween, _connection))
+                {
+                    _command.Parameters.AddWithValue("@StoreId", storeId);
+                    _command.Parameters.AddWithValue("@ItemId", itemId);
+                    _command.Parameters.AddWithValue("@MinPrice", minPrice);
+                    _command.Parameters.AddWithValue("@MaxPrice", maxPrice);
+
+                    using (_reader = _command.ExecuteReader())
+                    {
+                        return _reader.Read() ? CreateStoreItem(_reader) : null;
+                    }
                 }
             }
         }
