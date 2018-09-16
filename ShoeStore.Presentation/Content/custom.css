@@ -2,57 +2,65 @@
     background: #737373;
     border-radius: 2px;
     display: inline-block;
-    height: 300px;
+    height: 250px;
     margin: 1rem;
     position: relative;
-    width: 300px;
+    width: 250px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-    .card:hover {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    }
+.card:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 
 .effect {
     position: relative;
 }
 
-    .effect:hover:before, .effect5:hover:after {
-        z-index: -1;
-        position: absolute;
-        content: "";
-        bottom: 25px;
-        left: 10px;
-        width: 50%;
-        top: 80%;
-        max-width: 300px;
-        background: #777;
-        -webkit-box-shadow: 0 35px 20px #777;
-        -moz-box-shadow: 0 35px 20px #777;
-        box-shadow: 0 35px 20px #777;
-        -webkit-transform: rotate(-8deg);
-        -moz-transform: rotate(-8deg);
-        -o-transform: rotate(-8deg);
-        -ms-transform: rotate(-8deg);
-        transform: rotate(-8deg);
-    }
+.effect:hover:before, .effect5:hover:after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    bottom: 25px;
+    left: 10px;
+    width: 50%;
+    top: 80%;
+    max-width: 300px;
+    background: #777;
+    -webkit-box-shadow: 0 35px 20px #777;
+    -moz-box-shadow: 0 35px 20px #777;
+    box-shadow: 0 35px 20px #777;
+    -webkit-transform: rotate(-8deg);
+    -moz-transform: rotate(-8deg);
+    -o-transform: rotate(-8deg);
+    -ms-transform: rotate(-8deg);
+    transform: rotate(-8deg);
+}
 
-    .effect:hover:after {
-        -webkit-transform: rotate(8deg);
-        -moz-transform: rotate(8deg);
-        -o-transform: rotate(8deg);
-        -ms-transform: rotate(8deg);
-        transform: rotate(8deg);
-        right: 10px;
-        left: auto;
-    }
+.effect:hover:after {
+    -webkit-transform: rotate(8deg);
+    -moz-transform: rotate(8deg);
+    -o-transform: rotate(8deg);
+    -ms-transform: rotate(8deg);
+    transform: rotate(8deg);
+    right: 10px;
+    left: auto;
+}
 
 p {
     font-family: Gill Sans, Verdana;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 14px;
-    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: white;
+}
+h3 {
+    font-family: Gill Sans, Verdana;
+    font-size: 14px;
+    line-height: 12px;
+    /*text-transform: uppercase;*/
     letter-spacing: 2px;
     font-weight: bold;
 }
@@ -61,20 +69,26 @@ h2 {
     font-family: Gill Sans, Verdana;
     font-size: 18px;
     line-height: 14px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     letter-spacing: 2px;
     font-weight: bold;
 }
 
 h1 {
-    font-family: times, Times New Roman, times-roman, georgia, serif;
+    font-family: Gill Sans, Verdana;
     color: #444;
     margin: 0;
     padding: 0px 0px 6px 0px;
     font-size: 30px;
     line-height: 44px;
-    letter-spacing: -2px;
+    letter-spacing: 2px;
     font-weight: bold;
+}
+
+.cust-img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain
 }
 
 body {
@@ -86,7 +100,11 @@ body {
     margin-top: 60px;
 }
 
-    .centered-form .panel {
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
-    }
+.centered-form .panel {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+.greyitup {
+    color: grey;
+}

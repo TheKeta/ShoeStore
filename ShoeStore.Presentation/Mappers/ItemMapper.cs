@@ -18,6 +18,7 @@ namespace ShoeStore.Presentation.Mappers
         private IStoreService _storeService;
         private IStoreItemService _storeItemService;
         private IAveableSizeService _availableSizeService;
+        private IPictureService _pictureService;
 
         public ItemMapper(Configurations conf)
         {
@@ -26,10 +27,14 @@ namespace ShoeStore.Presentation.Mappers
             _storeService = _itemConfig.GetStoreService();
             _storeItemService = _itemConfig.GetStoreItemService();
             _availableSizeService = _itemConfig.GetAveableSizeService();
+            _pictureService = _itemConfig.GetPictureService();
         }
-        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID, ICollection<AveableSize> ases = null)
+        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID, ICollection<AveableSize> ases = null,
+            ICollection<string> pics = null)
         {
             ases = ases == null ? new List<AveableSize>() : ases as List<AveableSize>;
+            pics = pics == null ? new List<string>() : pics;
+
             return new ItemVM()
             {
                 Brand = item.Brand,
@@ -40,7 +45,8 @@ namespace ShoeStore.Presentation.Mappers
                 Price = price,
                 StoreName = storeName,
                 StoreItemId = siID,
-                AveableSizes = ases as List<AveableSize>
+                AveableSizes = ases as List<AveableSize>,
+                ImagesBit = pics
             };
         }
 
@@ -63,13 +69,26 @@ namespace ShoeStore.Presentation.Mappers
             Store store = _storeService.FindById(si.StoreId);
             List<AveableSize> ases = (List<AveableSize>) _availableSizeService.FindBySIId(si.Id);
             ases.Sort((x, y) => x.Size.CompareTo(y.Size));
-            return ConvertToVM(item, si.Price, store.Name, si.Id, ases);
+            ICollection<string> pics = ConvertPictures(_pictureService.FindByItemId(si.ItemId));
+            return ConvertToVM(item, si.Price, store.Name, si.Id, ases, pics);
+        }
+
+        private ICollection<string> ConvertPictures(ICollection<Picture> pictures)
+        {
+            ICollection<string> list = new List<string>();
+            foreach (Picture pic in pictures)
+            {
+                var base64 = Convert.ToBase64String(pic.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                list.Add(imgSrc);
+            }
+            return list;
         }
 
         public ICollection<ItemVM> Search(string storeName, string model, string brand,
-            string sex, double minPrice, double maxPrice, double size)
+            string sex, double minPrice, double maxPrice, double size, string sort = "ASC")
         {
-            ICollection<ItemVM> _items = new List<ItemVM>();
+            List<ItemVM> _items = new List<ItemVM>();
             //VALIDATION OF STRINGS, FOR SEX ONLY FIRST LETTER
             storeName = string.IsNullOrWhiteSpace(storeName) ? "" : storeName;
             model = string.IsNullOrWhiteSpace(model) ? "" : model;
@@ -89,20 +108,29 @@ namespace ShoeStore.Presentation.Mappers
                     StoreItem si = _storeItemService.FindByStoreIdAndItemIdAndPriceBetween(s.Id, i.Id,minPrice, maxPrice);
                     if (si != null)
                     {
+                        ICollection<string> pics = ConvertPictures(_pictureService.FindByItemId(si.ItemId));
                         if (size > 0)
                         {
                             AveableSize asa = _availableSizeService.FindBySIIdAndSize(si.Id, size);
                             if (asa != null)
                             {
-                                _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                                _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id,null, pics));
                             }
                         }
                         else
                         {
-                            _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id));
+                            _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id, null, pics));
                         }
                     }
                 }
+            }
+            if (sort.Equals("ASC"))
+            {
+                _items.Sort((x, y) => x.Price.CompareTo(y.Price));
+            }
+            else
+            {
+                _items.Sort((x, y) => y.Price.CompareTo(x.Price));
             }
             return _items;
         }

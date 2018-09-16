@@ -1,15 +1,25 @@
 ﻿@model ShoeStore.Presentation.ViewModel.ItemVM
 
+@{ 
+    string image = "";
+    if(Model.ImagesBit.Count != 0)
+    {
+        image = Model.ImagesBit.ElementAt(0);
+    }
+}
 <div class="card effect">
     <a href="@Url.Action("Item", "Items", new { storeItemId = Model.StoreItemId})">
-        <h1>@Model.Model (@Model.Brand)</h1>
-        <img src="" height="100" />
+        <h1>@Model.Model</h1>
+        <div style="text-align:center">
+            <img src="@image" height="150"/>
+        </div>
+        <br/>
         <div class="row">
             <div class="col-md-6">
-                <p>@Model.Sex</p>
+                <p>&nbsp;&nbsp;@Model.Sex</p>
             </div>
             <div class="col-md-6">
-                <p>@Model.Price</p>
+                <p>Price: @Model.Price</p>
             </div>
         </div>
      </a>

@@ -16,6 +16,8 @@ namespace ShoeStore.Presentation.Controllers
         private IStoreService _storeService;
         private IStoreItemService _siService;
         private IAveableSizeService _asService;
+        private IPictureService _pictureService;
+
         private Configuration.Configurations _itemConfig;
         private ItemMapper _itemMapper;
         private StoreMapper _storeMapper;
@@ -29,6 +31,7 @@ namespace ShoeStore.Presentation.Controllers
             _storeMapper = new StoreMapper(_itemConfig);
             _siService = _itemConfig.GetStoreItemService();
             _asService = _itemConfig.GetAveableSizeService();
+            _pictureService = _itemConfig.GetPictureService();
         }
 
         public ActionResult Index()
@@ -120,7 +123,8 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Index(ItemVM item)
         {
-            _itemService.Add(_itemMapper.ConvertFromVM(item));
+            Guid itemId = _itemService.Add(_itemMapper.ConvertFromVM(item)).Id;
+            _pictureService.Add(item.Images, itemId);
             return Redirect("/Admin");
         }
 
@@ -128,6 +132,11 @@ namespace ShoeStore.Presentation.Controllers
         public ActionResult Edit(ItemVM item)
         {
             _itemService.Update(_itemMapper.ConvertFromVM(item));
+            if(item.Images.ElementAt(0) != null)
+            {
+                _pictureService.RemoveByItemId(item.Id);
+                _pictureService.Add(item.Images, item.Id);
+            }
             return Redirect("/Admin");
         }
 
@@ -143,6 +152,7 @@ namespace ShoeStore.Presentation.Controllers
         {
             _siService.RemoveByItemId(id);
             _itemService.Remove(id);
+            _pictureService.RemoveByItemId(id);
             return Redirect("/Admin");
         }
 

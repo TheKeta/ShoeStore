@@ -34,13 +34,13 @@
         {
             <tr>
                 <td>
-                    <p>@item.Brand</p>
+                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Brand</p></a>
                 </td>
                 <td>
-                    <p>@item.Model</p>
+                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Model</p></a>
                 </td>
                 <td>
-                    <p>@item.SelectedAverableSize.Size</p>
+                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.SelectedAverableSize.Size</p></a>
                 </td>
                 <td>
                     <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("RemoveItemFromCart", "Cart", new { siId = item.StoreItemId, size = item.SelectedAverableSize.Size })'" class="material-icons btn btn-warning" /></p>

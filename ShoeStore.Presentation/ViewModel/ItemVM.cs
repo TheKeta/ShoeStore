@@ -14,5 +14,7 @@ namespace ShoeStore.Presentation.ViewModel
         public double Price { get; set; }
         public List<AveableSize> AveableSizes { get; set; }
         public AveableSize SelectedAverableSize { get; set; }
+        public ICollection<HttpPostedFileBase> Images { get; set; }
+        public ICollection<string> ImagesBit { get; set; }
     }
 }

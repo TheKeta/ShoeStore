@@ -16,13 +16,13 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="panel-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "login-form", enctype = "multipart/form-data" }))
             {
                 <div class="form-group">
-                    @Html.TextBoxFor(model => Model.Item.Model, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Model", type = "text" })
+                    @Html.TextBoxFor(model => Model.Item.Brand, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Brand", type = "text" })
                 </div>
                 <div class="form-group">
-                    @Html.TextBoxFor(model => Model.Item.Brand, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Brand", type = "text" })
+                    @Html.TextBoxFor(model => Model.Item.Model, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Model", type = "text" })
                 </div>
                 <div class="form-group">
                     @Html.TextBoxFor(model => Model.Item.Sex, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Sex", type = "text" })
@@ -30,12 +30,16 @@
                 <div class="form-group">
                     @Html.TextAreaFor(model => Model.Item.Description, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Description", type = "text" })
                 </div>
+                <div class="form-group">
+                    <p>Images:</p>
+                    @Html.TextBoxFor(model => Model.Item.Images, htmlAttributes: new { type = "file", accept = "image/png, image/jpeg", multiple = "true", @class = "form-control input-sm" })
+                </div>
                 @Html.TextBoxFor(model => Model.Item.Id, htmlAttributes: new { @class = "", type = "hidden" })
                 <input type="submit" value="@buttonText" class="btn btn-info btn-block">
                 if (buttonText.Equals("Edit"))
                 {
-                    <br/>
-                    <p><i><input type="button" value="Cancel" onclick="location.href='@Url.Action("Index", "Admin")'" class="btn btn-info btn-block" /></i></p>
+                        <br />
+                        <p><i><input type="button" value="Cancel" onclick="location.href='@Url.Action("Index", "Admin")'" class="btn btn-info btn-block" /></i></p>
                 }
             }
         </div>

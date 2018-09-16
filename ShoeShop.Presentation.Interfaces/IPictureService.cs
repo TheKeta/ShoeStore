@@ -1,11 +1,15 @@
 ﻿using ShoeStore.Models;
+using System;
+using System.Collections.Generic;
+using System.Web;
 
 namespace ShoeShop.Presentation.Interfaces
 {
     public interface IPictureService
     {
-        Picture Add(Picture item);
-        bool Remove(Picture itemID);
+        void Add(ICollection<HttpPostedFileBase> images, Guid itemId);
+        bool RemoveByItemId(Guid itemID);
         void Update(Picture item);
+        ICollection<Picture> FindByItemId(Guid itemId);
     }
 }
