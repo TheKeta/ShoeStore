@@ -15,6 +15,7 @@ namespace ShoeStore.Presentation.Controllers
         private StoreMapper _storeMapper;
         private ItemMapper _itemMapper;
         private static SearchItem _searchItem;
+        private const int ITEMS_PER_PAGE = 9;
 
         public HomeController()
         {
@@ -28,12 +29,12 @@ namespace ShoeStore.Presentation.Controllers
             HomeModel hm = new HomeModel();
             if (string.IsNullOrWhiteSpace(search))
             {
-                hm.ItemsVM = _storeMapper.SortByPriceDES().ToPagedList(page ?? 1, 3);
+                hm.ItemsVM = _storeMapper.SortByPriceDES().ToPagedList(page ?? 1, ITEMS_PER_PAGE);
                 return View(hm);
             }
             ICollection<ItemVM> items = _itemMapper.Search(_searchItem.StoreName, _searchItem.Model,
                 _searchItem.Brand, _searchItem.Sex, _searchItem.MinPrice, _searchItem.MaxPrice, _searchItem.Size);
-            hm.ItemsVM = items.ToPagedList(page ?? 1, 3);
+            hm.ItemsVM = items.ToPagedList(page ?? 1, ITEMS_PER_PAGE);
 
             return View("Index", hm);
         }
@@ -43,12 +44,12 @@ namespace ShoeStore.Presentation.Controllers
             HomeModel hm = new HomeModel();
             if (string.IsNullOrWhiteSpace(search))
             {
-                hm.ItemsVM = _storeMapper.SortByPriceASC().ToPagedList(page ?? 1, 3);
+                hm.ItemsVM = _storeMapper.SortByPriceASC().ToPagedList(page ?? 1, ITEMS_PER_PAGE);
                 return View("Index", hm);
             }
             ICollection<ItemVM> items = _itemMapper.Search(_searchItem.StoreName, _searchItem.Model,
                 _searchItem.Brand, _searchItem.Sex, _searchItem.MinPrice, _searchItem.MaxPrice, _searchItem.Size, "DSC");
-            hm.ItemsVM = items.ToPagedList(page ?? 1, 3);
+            hm.ItemsVM = items.ToPagedList(page ?? 1, ITEMS_PER_PAGE);
 
             return View("Index", hm);
 
@@ -61,7 +62,7 @@ namespace ShoeStore.Presentation.Controllers
 
             ICollection<ItemVM> items = _itemMapper.Search(searchItem.StoreName, searchItem.Model,
                 searchItem.Brand, searchItem.Sex, searchItem.MinPrice, searchItem.MaxPrice, searchItem.Size);
-            hm.ItemsVM = items.ToPagedList(1, 3);
+            hm.ItemsVM = items.ToPagedList(1, ITEMS_PER_PAGE);
             _searchItem = searchItem;
             return View("Index", hm);
         }
@@ -72,7 +73,7 @@ namespace ShoeStore.Presentation.Controllers
 
             ICollection<ItemVM> items = _itemMapper.Search(_searchItem.StoreName, _searchItem.Model,
                 _searchItem.Brand, _searchItem.Sex, _searchItem.MinPrice, _searchItem.MaxPrice, _searchItem.Size);
-            hm.ItemsVM = items.ToPagedList(page ?? 1, 3);
+            hm.ItemsVM = items.ToPagedList(page ?? 1, ITEMS_PER_PAGE);
 
             return View("Index", hm);
         }
