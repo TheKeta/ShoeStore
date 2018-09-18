@@ -58,7 +58,10 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Order(User user)
         {
-            //save delivery?
+            if (Session["userId"] != null)
+            {
+                _userService.Update(user);
+            }
             _cartMapper.ResetCart(Session);
             return Redirect("/");
         }

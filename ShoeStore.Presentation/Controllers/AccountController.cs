@@ -48,6 +48,14 @@ namespace ShoeStore.Presentation.Controllers
             return View(new UserVM());
         }
 
+        public ActionResult Logout()
+        {
+            Session["userId"] = null;
+            Session["userName"] = null;
+            Session["admin"] = false;
+            return Redirect("/");
+        }
+
         [HttpPost]
         public ActionResult Login(UserVM user)
         {

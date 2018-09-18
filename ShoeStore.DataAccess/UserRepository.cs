@@ -14,6 +14,7 @@ namespace ShoeStore.DataAccess
         private string _insertCommand = "INSERT INTO Users(Id, FirstName, LastName, Address, Email, Role, Password) VALUES(@Id, @FirstName, @LastName, @Address, @Email, @Role, @Password)";
         private string _findUser = "SELECT * FROM Users WHERE Email=@Email AND Password=@Password";
         private string _findById = "SELECT * FROM Users WHERE Id=@Id";
+        private string _updateUser = "UPDATE Users SET FirstName=@FirstName, LastName=@LastName, Address=@Address WHERE Id=@Id";
 
         public UserRepository(string connectionString)
         {
@@ -80,7 +81,20 @@ namespace ShoeStore.DataAccess
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            using (_connection = new SqlConnection(_connectionString))
+            {
+                _connection.Open();
+                using (_command = new SqlCommand(_updateUser, _connection))
+                {
+                    _command.Parameters.AddWithValue("@FirstName", user.FirstName);
+                    _command.Parameters.AddWithValue("@LastName", user.LastName);
+                    _command.Parameters.AddWithValue("@Address", user.Address);
+                    _command.Parameters.AddWithValue("@Id", user.Id);
+
+                    _command.ExecuteNonQuery();
+                    return;
+                }
+            }
         }
 
         private User CreateUser(SqlDataReader reader)

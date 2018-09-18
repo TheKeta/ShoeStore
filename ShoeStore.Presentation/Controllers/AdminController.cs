@@ -33,10 +33,20 @@ namespace ShoeStore.Presentation.Controllers
             _asService = _itemConfig.GetAveableSizeService();
             _pictureService = _itemConfig.GetPictureService();
         }
-
+        private bool IsAdmin()
+        {
+            if(Session["admin"]!=null && (bool)Session["admin"] == true)
+            {
+                return true;
+            }
+            return false;
+        }
         public ActionResult Index()
         {
-
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             NewItemVM ni = new NewItemVM();
             ni.AllItems = _itemService.GetAll();
             return View(ni);
@@ -44,6 +54,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult Stores()
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             NewStoreVM ns = new NewStoreVM();
             ns.AllStores = _storeService.GetAll();
             return View(ns);
@@ -51,6 +65,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult Store(Guid id)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             Store s = _storeService.FindById(id);
             NewStoreVM ns = new NewStoreVM();
             ns.ItemToAdd = new ItemVM();
@@ -61,7 +79,10 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Store(NewStoreVM ns)
         {
-
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             if (Request.Form["add"] != null)
             {
                 //Add form
@@ -116,6 +137,10 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Stores(StoreVM store)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _storeService.Add(_storeMapper.ConvertFromStoreVM(store));
             return Redirect("Stores");
         }
@@ -123,6 +148,10 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Index(ItemVM item)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             Guid itemId = _itemService.Add(_itemMapper.ConvertFromVM(item)).Id;
             _pictureService.Add(item.Images, itemId);
             return Redirect("/Admin");
@@ -131,6 +160,10 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult Edit(ItemVM item)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _itemService.Update(_itemMapper.ConvertFromVM(item));
             if(item.Images.ElementAt(0) != null)
             {
@@ -142,6 +175,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult Edit(Guid id)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             NewItemVM ni = new NewItemVM();
             ni.AllItems = _itemService.GetAll();
             ni.Item = _itemMapper.ConvertToVM(_itemService.FindById(id),0,"",new Guid());
@@ -150,6 +187,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult Remove(Guid id)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _siService.RemoveByItemId(id);
             _itemService.Remove(id);
             _pictureService.RemoveByItemId(id);
@@ -159,12 +200,20 @@ namespace ShoeStore.Presentation.Controllers
         [HttpPost]
         public ActionResult EditS(StoreVM store)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _storeService.Update(_storeMapper.ConvertFromStoreVM(store));
             return Redirect("/Admin/Stores");
         }
 
         public ActionResult EditS(Guid id)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             NewStoreVM ni = new NewStoreVM();
             ni.AllStores = _storeService.GetAll();
             ni.Store = _storeMapper.ConvertToStoreVM(_storeService.FindById(id),null);
@@ -173,6 +222,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult RemoveS(Guid id)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _siService.RemoveByStoreId(id);
             _storeService.Remove(id);
             return Redirect("/Admin/Stores");
@@ -180,6 +233,10 @@ namespace ShoeStore.Presentation.Controllers
 
         public ActionResult RemoveItemFromStore(Guid storeId, Guid itemId)
         {
+            if (!IsAdmin())
+            {
+                return Redirect("/");
+            }
             _siService.RemoveByStoreIdAndItemId(storeId, itemId);
             return Redirect("/Admin/Store/" + storeId.ToString());
         }

@@ -2,53 +2,66 @@
 @{
     ViewBag.Title = "Cart Items";
 }
-@{ 
-    string item_s;
-    if(Model.Count > 1)
+@{
+    string item_s = "";
+    bool empty = false;
+    if (Model != null)
     {
-        item_s = "Items";
+        if (Model.Count > 1)
+        {
+            item_s = "Items";
+        }
+        else
+        {
+            item_s = "Item";
+        }
     }
     else
     {
-        item_s = "Item";
+        empty = true;
     }
 }
-
-<div class="col-lg-12">
-    <table width="100%">
-        <tr>
-            <th>
-                <p><i>Brand</i></p>
-            </th>
-            <th>
-                <p><i>Model</i></p>
-            </th>
-            <th>
-                <p><i>Size</i></p>
-            </th>
-            <th>
-                <p><i>Remove</i></p>
-            </th>
-        </tr>
-        @foreach (var item in Model)
-        {
+@if (!empty)
+{
+    <div class="col-lg-12">
+        <table width="100%">
             <tr>
-                <td>
-                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Brand</p></a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Model</p></a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.SelectedAverableSize.Size</p></a>
-                </td>
-                <td>
-                    <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("RemoveItemFromCart", "Cart", new { siId = item.StoreItemId, size = item.SelectedAverableSize.Size })'" class="material-icons btn btn-warning" /></p>
-                </td>
+                <th>
+                    <p><i>Brand</i></p>
+                </th>
+                <th>
+                    <p><i>Model</i></p>
+                </th>
+                <th>
+                    <p><i>Size</i></p>
+                </th>
+                <th>
+                    <p><i>Remove</i></p>
+                </th>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Brand</p></a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.Model</p></a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Item", "Items", new { storeItemId = item.StoreItemId})"><p>@item.SelectedAverableSize.Size</p></a>
+                    </td>
+                    <td>
+                        <p><input type="button" value="&#xe5c9;" onclick="location.href='@Url.Action("RemoveItemFromCart", "Cart", new { siId = item.StoreItemId, size = item.SelectedAverableSize.Size })'" class="material-icons btn btn-warning" /></p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 
-
-<p></p><input type="button" value="Order @item_s" onclick="location.href='@Url.Action("Order", "Cart")'" class="btn btn-success" /></p>
+    <p><input type="button" value="Order @item_s" onclick="location.href='@Url.Action("Order", "Cart")'" class="btn btn-success" /></p>
+}
+else
+{
+    <h2>No items in cart.</h2>
+}

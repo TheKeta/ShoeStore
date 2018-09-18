@@ -8,10 +8,10 @@
         buttonText = "Edit";
     }
 }
-@*@if (Session["admin"] == null)
-    {
-        Response.Redirect("/");
-    }*@
+@if (Session["admin"] == null)
+{
+    Response.Redirect("/");
+}
 
 <div class="row">
     <div class="col-lg-4">
@@ -76,7 +76,7 @@
                             <p><input type="button" value="&#xe869;" onclick="location.href='@Url.Action("EditS", "Admin", new { id = item.Id })'" class="material-icons btn btn-success" /></p>
                         </th>
                         <th>
-                            <p><input type="button" value="&#xe92b;" onclick="location.href='@Url.Action("RemoveS", "Admin", new { id = item.Id })'"  title="Removes links with all items"  class="material-icons btn btn-danger" /></p>
+                            <p><input type="button" value="&#xe92b;" onclick="location.href='@Url.Action("RemoveS", "Admin", new { id = item.Id })'" title="Removes links with all items" class="material-icons btn btn-danger" /></p>
                         </th>
                     </tr>
                 </a>

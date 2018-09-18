@@ -3,12 +3,16 @@
     ViewBag.Title = "Store";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-@{ 
+@{
     string numOfItems = "items";
-    if(Model.Store.Items.Count == 1)
+    if (Model.Store.Items.Count == 1)
     {
         numOfItems = "item";
     }
+}
+@if (Session["admin"] == null)
+{
+    Response.Redirect("/");
 }
 
 <h2>
@@ -32,7 +36,7 @@
                     <p>Size</p>
                     @Html.TextBoxFor(model => Model.ItemToAdd.SelectedAverableSize.Size, htmlAttributes: new { @class = "form-control input-sm", type = "text" })
                 </div>
-                    @Html.TextBoxFor(model => Model.Store.Id, htmlAttributes: new { @class = "", type = "hidden" })
+                @Html.TextBoxFor(model => Model.Store.Id, htmlAttributes: new { @class = "", type = "hidden" })
                 <div>
                     <input type="submit" value="Remove Size" name="remove" class="btn btn-warning btn-block">
                     <input type="submit" value="Add" name="add" title="Add new Item or new size for existing item." class="btn btn-info btn-block">
@@ -76,7 +80,7 @@
                         <p>@item.Sex</p>
                     </td>
                     <td>
-                        <p>@Html.DropDownList("a", new SelectList(item.AveableSizes, "Size", "Size"), new {  @class="btn btn-default" })</p>
+                        <p>@Html.DropDownList("a", new SelectList(item.AveableSizes, "Size", "Size"), new { @class = "btn btn-default" })</p>
                     </td>
                     <td>
                         <p>@item.Id</p>

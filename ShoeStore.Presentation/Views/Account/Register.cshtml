@@ -8,10 +8,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <title>@ViewBag.Title Registration</title>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="SHORTCUT ICON" href="https://www.freeiconspng.com/uploads/shoe-icon-26.png" />
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <style>
         body {
             background-color: #525252;
@@ -28,7 +30,23 @@
     </style>
 </head>
 <body>
-
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Shoe Store", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <!------ Include the above in your HEAD tag ---------->
     <div class="container">
         <div class="row centered-form">
@@ -43,7 +61,7 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        @Html.TextBoxFor(model => model.FirstName, htmlAttributes: new { @class = "form-control input-sm" , placeholder = "First Name" })
+                                        @Html.TextBoxFor(model => model.FirstName, htmlAttributes: new { @class = "form-control input-sm", placeholder = "First Name" })
                                         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -55,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Email" , type = "email" })
+                                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Email", type = "email" })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
@@ -65,24 +83,30 @@
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Password" , type = "password" })
+                                        @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Password", type = "password" })
                                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         @Html.TextBoxFor(model => model.PasswordConfirmation, htmlAttributes: new { @class = "form-control input-sm", placeholder = "Confirm Password", type = "password" })
-                                        @Html.ValidationMessageFor(model => model.PasswordConfirmation,"", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.PasswordConfirmation, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
 
                             <input type="submit" value="Register" class="btn btn-info btn-block">
-                         }
+                        }
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container body-content">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Faculty of Technical Science Novi Sad</p>
+        </footer>
     </div>
 </body>
 </html>

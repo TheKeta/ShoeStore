@@ -45,7 +45,7 @@ namespace ShoeShop.Business.Services
 
         public void Update(User user)
         {
-            throw new NotImplementedException();
+            _userRepository.Update(user);
         }
     }
 }
