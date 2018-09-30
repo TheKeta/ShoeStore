@@ -9,7 +9,7 @@
 }
 <div class="card effect">
     <a href="@Url.Action("Item", "Items", new { storeItemId = Model.StoreItemId})">
-        <h1>@Model.Model</h1>
+        <h1 style="white-space: nowrap; overflow-x: hidden">@Model.Model</h1>
         <div style="text-align:center">
             <img src="@image" height="150"/>
         </div>

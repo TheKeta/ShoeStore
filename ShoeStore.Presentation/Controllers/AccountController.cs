@@ -38,7 +38,7 @@ namespace ShoeStore.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 _userService.Add(_userMapper.ConvertToUser(user));
-                return Redirect("/");
+                return Redirect("Login");
             }
             return View();
         }

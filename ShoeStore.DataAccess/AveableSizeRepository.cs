@@ -6,25 +6,25 @@ using System.Data.SqlClient;
 
 namespace ShoeStore.DataAccess
 {
-    public class AveableSizeRepository : IAveableSizeRepository
+    public class AvailableSizeRepository : IAvailableSizeRepository
     {
         private SqlConnection _connection;
         private SqlCommand _command;
         private SqlDataReader _reader;
         private string _connectionString;
-        private string _insertCommand = "INSERT INTO AveableSizes(Id, SIId, Size) VALUES(@Id, @SIId, @Size)";
-        private string _findBySIId = "SELECT * FROM AveableSizes WHERE SIId=@SIId";
-        private string _findBySIIdAndSize = "SELECT * FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
-        private string _removeBySIIdAndSize = "DELETE FROM AveableSizes WHERE SIId=@SIId AND Size=@Size";
-        private string _remove = "DELETE FROM AveableSizes WHERE Id=@Id";
+        private string _insertCommand = "INSERT INTO AvailableSizes(Id, SIId, Size) VALUES(@Id, @SIId, @Size)";
+        private string _findBySIId = "SELECT * FROM AvailableSizes WHERE SIId=@SIId";
+        private string _findBySIIdAndSize = "SELECT * FROM AvailableSizes WHERE SIId=@SIId AND Size=@Size";
+        private string _removeBySIIdAndSize = "DELETE FROM AvailableSizes WHERE SIId=@SIId AND Size=@Size";
+        private string _remove = "DELETE FROM AvailableSizes WHERE Id=@Id";
 
 
-        public AveableSizeRepository(string connectionString)
+        public AvailableSizeRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public AveableSize Add(AveableSize item)
+        public AvailableSize Add(AvailableSize item)
         {
             using (_connection = new SqlConnection(_connectionString))
             {
@@ -56,7 +56,7 @@ namespace ShoeStore.DataAccess
             }
         }
 
-        public ICollection<AveableSize> FindBySIId(Guid siId)
+        public ICollection<AvailableSize> FindBySIId(Guid siId)
         {
             using (_connection = new SqlConnection(_connectionString))
             {
@@ -67,7 +67,7 @@ namespace ShoeStore.DataAccess
 
                     using (_reader = _command.ExecuteReader())
                     {
-                        return CreateAveableSizeList(_reader);
+                        return CreateAvailableSizeList(_reader);
                     }
                 }
             }
@@ -87,24 +87,24 @@ namespace ShoeStore.DataAccess
             }
         }
 
-        public void Update(AveableSize item)
+        public void Update(AvailableSize item)
         {
             throw new NotImplementedException();
         }
 
-        private ICollection<AveableSize> CreateAveableSizeList(SqlDataReader reader)
+        private ICollection<AvailableSize> CreateAvailableSizeList(SqlDataReader reader)
         {
-            List<AveableSize> list = new List<AveableSize>();
+            List<AvailableSize> list = new List<AvailableSize>();
             while (reader.Read())
             {
-                list.Add(CreateAveableSize(reader));
+                list.Add(CreateAvailableSize(reader));
             }
             return list;
         }
 
-        private AveableSize CreateAveableSize(SqlDataReader reader)
+        private AvailableSize CreateAvailableSize(SqlDataReader reader)
         {
-            return new AveableSize()
+            return new AvailableSize()
             {
                 Id = (Guid)reader[0],
                 SIId = (Guid)reader[1],
@@ -112,7 +112,7 @@ namespace ShoeStore.DataAccess
             };
         }
 
-        public AveableSize FindBySIIdAndSize(Guid siId, double size)
+        public AvailableSize FindBySIIdAndSize(Guid siId, double size)
         {
             using (_connection = new SqlConnection(_connectionString))
             {
@@ -123,7 +123,7 @@ namespace ShoeStore.DataAccess
                     _command.Parameters.AddWithValue("@Size", size);
                     using (_reader = _command.ExecuteReader())
                     {
-                        return _reader.Read() ? CreateAveableSize(_reader) : null;
+                        return _reader.Read() ? CreateAvailableSize(_reader) : null;
                     }
                 }
             }

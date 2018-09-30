@@ -58,7 +58,7 @@
                     <p><i>Sex</i></p>
                 </th>
                 <th>
-                    <p><i>Aveable Sizes</i></p>
+                    <p><i>Available Sizes</i></p>
                 </th>
                 <th>
                     <p><i>Id</i></p>
@@ -80,7 +80,7 @@
                         <p>@item.Sex</p>
                     </td>
                     <td>
-                        <p>@Html.DropDownList("a", new SelectList(item.AveableSizes, "Size", "Size"), new { @class = "btn btn-default" })</p>
+                        <p>@Html.DropDownList("a", new SelectList(item.AvailableSizes, "Size", "Size"), new { @class = "btn btn-default" })</p>
                     </td>
                     <td>
                         <p>@item.Id</p>

@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace ShoeShop.Business.Services
 {
-    public class AveableSizeService : IAveableSizeService
+    public class AvailableSizeService : IAvailableSizeService
     {
-        private IAveableSizeRepository _aveableSizeRepository;
+        private IAvailableSizeRepository _AvailableSizeRepository;
 
-        public AveableSizeService(IAveableSizeRepository aveableSizeRepository)
+        public AvailableSizeService(IAvailableSizeRepository AvailableSizeRepository)
         {
-            _aveableSizeRepository = aveableSizeRepository;
+            _AvailableSizeRepository = AvailableSizeRepository;
         }
 
-        public AveableSize Add(AveableSize item)
+        public AvailableSize Add(AvailableSize item)
         {
             //proveriti da li ima taj ssid sa tom velicinom
-            AveableSize ass = _aveableSizeRepository.FindBySIIdAndSize(item.SIId, item.Size);
+            AvailableSize ass = _AvailableSizeRepository.FindBySIIdAndSize(item.SIId, item.Size);
             if (ass == null)
             {
                 item.Id = Guid.NewGuid();
-                return _aveableSizeRepository.Add(item);
+                return _AvailableSizeRepository.Add(item);
             }
             return ass;
             
@@ -33,27 +33,27 @@ namespace ShoeShop.Business.Services
 
         public bool RemoveBySIIdAndSize(Guid siId, double size)
         {
-            return _aveableSizeRepository.RemoveBySIIdAndSize(siId, size);
+            return _AvailableSizeRepository.RemoveBySIIdAndSize(siId, size);
         }
 
-        public ICollection<AveableSize> FindBySIId(Guid siId)
+        public ICollection<AvailableSize> FindBySIId(Guid siId)
         {
-            return _aveableSizeRepository.FindBySIId(siId);
+            return _AvailableSizeRepository.FindBySIId(siId);
         }
 
-        public bool Remove(AveableSize itemID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(AveableSize item)
+        public bool Remove(AvailableSize itemID)
         {
             throw new NotImplementedException();
         }
 
-        public AveableSize FindBySIIdAndSize(Guid siId, double size)
+        public void Update(AvailableSize item)
         {
-            return _aveableSizeRepository.FindBySIIdAndSize(siId, size);
+            throw new NotImplementedException();
+        }
+
+        public AvailableSize FindBySIIdAndSize(Guid siId, double size)
+        {
+            return _AvailableSizeRepository.FindBySIIdAndSize(siId, size);
         }
     }
 }

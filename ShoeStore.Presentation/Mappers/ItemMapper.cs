@@ -17,7 +17,7 @@ namespace ShoeStore.Presentation.Mappers
         private IItemService _itemService;
         private IStoreService _storeService;
         private IStoreItemService _storeItemService;
-        private IAveableSizeService _availableSizeService;
+        private IAvailableSizeService _availableSizeService;
         private IPictureService _pictureService;
 
         public ItemMapper(Configurations conf)
@@ -26,13 +26,13 @@ namespace ShoeStore.Presentation.Mappers
             _itemService = _itemConfig.GetItemService();
             _storeService = _itemConfig.GetStoreService();
             _storeItemService = _itemConfig.GetStoreItemService();
-            _availableSizeService = _itemConfig.GetAveableSizeService();
+            _availableSizeService = _itemConfig.GetAvailableSizeService();
             _pictureService = _itemConfig.GetPictureService();
         }
-        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID, ICollection<AveableSize> ases = null,
+        public ItemVM ConvertToVM(Item item, double price, string storeName, Guid siID, ICollection<AvailableSize> ases = null,
             ICollection<string> pics = null)
         {
-            ases = ases == null ? new List<AveableSize>() : ases as List<AveableSize>;
+            ases = ases == null ? new List<AvailableSize>() : ases as List<AvailableSize>;
             pics = pics == null ? new List<string>() : pics;
 
             return new ItemVM()
@@ -45,7 +45,7 @@ namespace ShoeStore.Presentation.Mappers
                 Price = price,
                 StoreName = storeName,
                 StoreItemId = siID,
-                AveableSizes = ases as List<AveableSize>,
+                AvailableSizes = ases as List<AvailableSize>,
                 ImagesBit = pics
             };
         }
@@ -67,7 +67,7 @@ namespace ShoeStore.Presentation.Mappers
             StoreItem si = _storeItemService.FindById(storeItemId);
             Item item = _itemService.FindById(si.ItemId);
             Store store = _storeService.FindById(si.StoreId);
-            List<AveableSize> ases = (List<AveableSize>) _availableSizeService.FindBySIId(si.Id);
+            List<AvailableSize> ases = (List<AvailableSize>) _availableSizeService.FindBySIId(si.Id);
             ases.Sort((x, y) => x.Size.CompareTo(y.Size));
             ICollection<string> pics = ConvertPictures(_pictureService.FindByItemId(si.ItemId));
             return ConvertToVM(item, si.Price, store.Name, si.Id, ases, pics);
@@ -111,7 +111,7 @@ namespace ShoeStore.Presentation.Mappers
                         ICollection<string> pics = ConvertPictures(_pictureService.FindByItemId(si.ItemId));
                         if (size > 0)
                         {
-                            AveableSize asa = _availableSizeService.FindBySIIdAndSize(si.Id, size);
+                            AvailableSize asa = _availableSizeService.FindBySIIdAndSize(si.Id, size);
                             if (asa != null)
                             {
                                 _items.Add(ConvertToVM(i, si.Price, s.Name, si.Id,null, pics));

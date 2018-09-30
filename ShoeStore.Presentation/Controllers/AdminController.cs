@@ -15,7 +15,7 @@ namespace ShoeStore.Presentation.Controllers
         private IItemService _itemService;
         private IStoreService _storeService;
         private IStoreItemService _siService;
-        private IAveableSizeService _asService;
+        private IAvailableSizeService _asService;
         private IPictureService _pictureService;
 
         private Configuration.Configurations _itemConfig;
@@ -30,7 +30,7 @@ namespace ShoeStore.Presentation.Controllers
             _storeService = _itemConfig.GetStoreService();
             _storeMapper = new StoreMapper(_itemConfig);
             _siService = _itemConfig.GetStoreItemService();
-            _asService = _itemConfig.GetAveableSizeService();
+            _asService = _itemConfig.GetAvailableSizeService();
             _pictureService = _itemConfig.GetPictureService();
         }
         private bool IsAdmin()
@@ -93,7 +93,7 @@ namespace ShoeStore.Presentation.Controllers
                     si.StoreId = ns.Store.Id;
                     si.Price = ns.ItemToAdd.Price;
                     si = _siService.Add(si);
-                    AveableSize ass = new AveableSize();
+                    AvailableSize ass = new AvailableSize();
                     ass.SIId = si.Id;
                     ass.Size = ns.ItemToAdd.SelectedAverableSize.Size;
                     _asService.Add(ass);

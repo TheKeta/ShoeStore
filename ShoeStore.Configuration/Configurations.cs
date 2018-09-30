@@ -32,14 +32,14 @@ namespace ShoeStore.Configuration
             return new PictureRepository(ShoeStore.Configuration.StringConfigurations.ConnectionString);
         }
 
-        public IAveableSizeService GetAveableSizeService()
+        public IAvailableSizeService GetAvailableSizeService()
         {
-            return new AveableSizeService(GetAveableSizeRepository());
+            return new AvailableSizeService(GetAvailableSizeRepository());
         }
 
-        public IAveableSizeRepository GetAveableSizeRepository()
+        public IAvailableSizeRepository GetAvailableSizeRepository()
         {
-            return new AveableSizeRepository(ShoeStore.Configuration.StringConfigurations.ConnectionString);
+            return new AvailableSizeRepository(ShoeStore.Configuration.StringConfigurations.ConnectionString);
         }
 
         public IUserService GetUserService()
@@ -64,7 +64,7 @@ namespace ShoeStore.Configuration
 
         public IStoreItemService GetStoreItemService()
         {
-            return new StoreItemService(GetStoreItemRepository(), GetAveableSizeService());
+            return new StoreItemService(GetStoreItemRepository(), GetAvailableSizeService());
         }
 
         public IStoreItemRepository GetStoreItemRepository()

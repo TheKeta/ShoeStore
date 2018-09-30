@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoeStore.Models
 {
-    public class AveableSize
+    public class AvailableSize
     {
         public Guid Id { get; set; }
         public Guid SIId { get; set; } //store_item ID

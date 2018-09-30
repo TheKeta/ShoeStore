@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace ShoeShop.Business.Interfaces
 {
-    public interface IAveableSizeRepository
+    public interface IAvailableSizeRepository
     {
-        AveableSize Add(AveableSize item);
+        AvailableSize Add(AvailableSize item);
         bool Remove(Guid itemID);
-        void Update(AveableSize item);
-        ICollection<AveableSize> FindBySIId(Guid siId);
-        AveableSize FindBySIIdAndSize(Guid siId, double size);
+        void Update(AvailableSize item);
+        ICollection<AvailableSize> FindBySIId(Guid siId);
+        AvailableSize FindBySIIdAndSize(Guid siId, double size);
         bool RemoveBySIIdAndSize(Guid siId, double size);
 
     }
